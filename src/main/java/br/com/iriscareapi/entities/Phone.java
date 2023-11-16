@@ -1,5 +1,6 @@
 package br.com.iriscareapi.entities;
 
+import br.com.iriscareapi.dto.PhoneDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,4 +29,9 @@ public class Phone {
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JsonIgnore
     private User user;
+
+    public Phone(PhoneDTO phoneDTO) {
+        this.DDD = phoneDTO.getDDD();
+        this.number = phoneDTO.getNumber();
+    }
 }

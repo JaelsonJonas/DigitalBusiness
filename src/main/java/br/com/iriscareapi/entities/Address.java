@@ -1,5 +1,6 @@
 package br.com.iriscareapi.entities;
 
+import br.com.iriscareapi.dto.AddressDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -43,11 +44,13 @@ public class Address {
     @JsonIgnore
     private User user;
 
-    public Address(String zipCode, String street, String number, String city, String state) {
-        this.zipCode = zipCode;
-        this.street = street;
-        this.number = number;
-        this.city = city;
+    public Address(AddressDTO addressDTO) {
+        this.zipCode = addressDTO.getZipCode();
+        this.number = addressDTO.getNumber();
+        this.street = addressDTO.getStreet();
+        this.neighborhood = addressDTO.getNeighborhood();
+        this.city = addressDTO.getCity();
+        this.state = addressDTO.getState();
     }
 
 }
