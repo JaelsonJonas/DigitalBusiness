@@ -1,11 +1,15 @@
 package br.com.iriscareapi.entities;
 
+import br.com.iriscareapi.dto.ChildInsertDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
+
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,18 +21,32 @@ import lombok.NoArgsConstructor;
 public class Child {
 
     @Id
+    @GeneratedValue(generator = "child", strategy = GenerationType.SEQUENCE)
+    @Column(name = "id_child")
     private Long id;
 
-    @Column(name = "user_name", length = 50, nullable = false)
+    @Column(name = "child_name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "user_cpf", nullable = false, length = 14)
-    @JsonFormat(pattern = "###.###.###-##")
+    @Column(name = "child_cpf", nullable = false, length = 14)
+    //@JsonFormat(pattern = "###.###.###-##")
+    @CPF
     private String cpf;
+
+    @Column(name = "child_birthday")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate birthday;
 
     private Boolean active;
 
     @ManyToOne
     private User user;
+
+    public Child(ChildInsertDTO dto) {
+        this.name = dto.getName();
+        this.cpf = dto.getCpf();
+        this.birthday = LocalDate.parse(dto.getBirthday());
+        this.active = true;
+    }
 
 }

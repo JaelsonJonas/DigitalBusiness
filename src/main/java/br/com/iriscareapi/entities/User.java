@@ -2,11 +2,14 @@ package br.com.iriscareapi.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor
@@ -20,14 +23,27 @@ public class User {
 
     @Id
     @GeneratedValue(generator = "user", strategy = GenerationType.SEQUENCE)
+    @Column(name = "id_user")
     private Long id;
 
     @Column(name = "user_name", length = 50, nullable = false)
     private String name;
 
     @Column(name = "user_cpf", nullable = false, length = 14)
-    @JsonFormat(pattern = "###.###.###-##")
+    //@JsonFormat(pattern = "###.###.###-##")
+    @CPF
     private String cpf;
+
+    @Column(name = "user_birthday")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate birthday;
+
+    @Column(name = "user_email", nullable = false)
+    @Email
+    private String email;
+
+    @Column(name = "user_password", nullable = false, length = 100)
+    private String password;
 
     private Boolean active;
 
@@ -39,5 +55,9 @@ public class User {
 
     @OneToMany
     private List<Child> children;
+
+    public void addChild(Child child) {
+        this.children.add(child);
+    }
 
 }

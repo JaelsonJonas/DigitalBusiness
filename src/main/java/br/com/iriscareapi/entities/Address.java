@@ -25,26 +25,29 @@ public class Address {
     private String zipCode;
 
     @Column(nullable = false)
-    private Integer number;
+    private String number;
 
-    @Column(length = 45, nullable = false)
+    @Column(length = 50, nullable = false)
     private String street;
 
-    @Column(length = 35, nullable = false)
+    @Column(length = 50, nullable = false)
+    private String neighborhood;
+
+    @Column(length = 50, nullable = false)
     private String city;
 
-    private Boolean isMain = false;
+    @Column(length = 50, nullable = false)
+    private String state;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JsonIgnore
     private User user;
 
-    public Address(String street, Integer number, String zipCode, String city, Boolean isMain) {
+    public Address(String zipCode, String street, String number, String city, String state) {
+        this.zipCode = zipCode;
         this.street = street;
         this.number = number;
-        this.zipCode = zipCode;
         this.city = city;
-        this.isMain = isMain;
     }
 
 }
