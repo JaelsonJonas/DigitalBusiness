@@ -1,5 +1,6 @@
 package br.com.iriscareapi.entities;
 
+import br.com.iriscareapi.dto.UserInsertDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -30,7 +31,6 @@ public class User {
     private String name;
 
     @Column(name = "user_cpf", nullable = false, length = 14)
-    //@JsonFormat(pattern = "###.###.###-##")
     @CPF
     private String cpf;
 
@@ -58,6 +58,15 @@ public class User {
 
     public void addChild(Child child) {
         this.children.add(child);
+    }
+
+    public User(UserInsertDTO userInsertDTO) {
+        this.name = userInsertDTO.getName();
+        this.cpf = userInsertDTO.getCpf();
+        this.birthday = LocalDate.parse(userInsertDTO.getBirthday());
+        this.email = userInsertDTO.getEmail();
+        this.password = userInsertDTO.getPassword();
+        this.active = true;
     }
 
 }
