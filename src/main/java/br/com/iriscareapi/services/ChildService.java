@@ -6,6 +6,7 @@ import br.com.iriscareapi.entities.Child;
 import br.com.iriscareapi.exception.EntityRegisterException;
 import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.repositories.ChildRepository;
+import br.com.iriscareapi.utils.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,34 +58,23 @@ public class ChildService {
         saveChild(child);
     }
 
-    public void changeAllChildActive(List<Long> childrenId) throws ObjectNotFoundException {
-        for(Long id : childrenId) {
-            changeChildActive(id);
-        }
-    }
-
     public void userHasAnyChild(Long id) throws ObjectNotFoundException {
         if(!childRepository.existsChildByUserId(id))
             throw new ObjectNotFoundException("User with id " + id + " doesn't have any children registered");
     }
 
     public void dataUpdate(Child childToAtt, ChildUpdateDTO childUpdateDTO) {
-        childToAtt.setName(validateUpdatedValue(childToAtt.getName(),
+        childToAtt.setName(DataUtils.validateUpdatedValue(childToAtt.getName(),
                                                     childUpdateDTO.getName()));
 
-        childToAtt.setCpf(validateUpdatedValue(childToAtt.getCpf(),
+        childToAtt.setCpf(DataUtils.validateUpdatedValue(childToAtt.getCpf(),
                                                     childUpdateDTO.getCpf()));
 
-        childToAtt.setBirthday(validateUpdatedValue(childToAtt.getBirthday(),
+        childToAtt.setBirthday(DataUtils.validateUpdatedValue(childToAtt.getBirthday(),
                                                     LocalDate.parse(childUpdateDTO.getBirthday())));
     }
 
     public ChildFindDTO parseChildToChildFindDTO(Child child) {
         return new ChildFindDTO(child.getName(), child.getCpf(), child.getBirthday().toString(), child.getActive());
     }
-
-    public static <T> T validateUpdatedValue(T defaultValue, T newValue) {
-        return (newValue != null && !newValue.toString().isEmpty() && !newValue.toString().isBlank()) ? newValue : defaultValue;
-    }
-
 }

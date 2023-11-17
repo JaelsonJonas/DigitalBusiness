@@ -8,7 +8,7 @@ import br.com.iriscareapi.entities.User;
 import br.com.iriscareapi.exception.EntityRegisterException;
 import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.repositories.UserRepository;
-import jakarta.validation.constraints.NotNull;
+import br.com.iriscareapi.utils.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,10 +42,10 @@ public class UserService {
         Phone phone = new Phone(userInsertDTO.getPhoneDTO());
 
         address.setUser(user);
-        addressService.insertAddress(address);
+        addressService.saveAddress(address);
 
         phone.setUser(user);
-        phoneService.insertPhone(phone);
+        phoneService.savePhone(phone);
 
         user.setAddress(address);
         user.setPhone(phone);
@@ -67,15 +67,15 @@ public class UserService {
     }
 
     public void dataUpdate(User userToAtt, UserUpdateDTO userUpdateDTO) {
-        userToAtt.setName(validateUpdatedValue(userToAtt.getName(), userToAtt.getName()));
+        userToAtt.setName(DataUtils.validateUpdatedValue(userToAtt.getName(), userToAtt.getName()));
 
-        userToAtt.setCpf(validateUpdatedValue(userToAtt.getCpf(), userToAtt.getCpf()));
+        userToAtt.setCpf(DataUtils.validateUpdatedValue(userToAtt.getCpf(), userToAtt.getCpf()));
 
-        userToAtt.setBirthday(validateUpdatedValue(userToAtt.getBirthday(), LocalDate.parse(userUpdateDTO.getBirthday())));
+        userToAtt.setBirthday(DataUtils.validateUpdatedValue(userToAtt.getBirthday(), LocalDate.parse(userUpdateDTO.getBirthday())));
 
-        userToAtt.setEmail(validateUpdatedValue(userToAtt.getEmail(), userUpdateDTO.getEmail()));
+        userToAtt.setEmail(DataUtils.validateUpdatedValue(userToAtt.getEmail(), userUpdateDTO.getEmail()));
 
-        userToAtt.setPassword(validateUpdatedValue(userToAtt.getPassword(), userUpdateDTO.getPassword()));
+        userToAtt.setPassword(DataUtils.validateUpdatedValue(userToAtt.getPassword(), userUpdateDTO.getPassword()));
 
     }
 
@@ -127,15 +127,19 @@ public class UserService {
         }
     }
 
+    public void updatePhone(Long phoneId, PhoneUpdateDTO phoneUpdateDTO) throws Exception {
+        phoneService.updatePhone(phoneId, phoneUpdateDTO);
+    }
+
+    public void updateAddress(Long addressId, AddressUpdateDTO addressUpdateDTO) throws Exception {
+        addressService.updateAddress(addressId, addressUpdateDTO);
+    }
+
     public boolean userHasChildWithGivenId(Long userId, Long childId) throws ObjectNotFoundException {
         if (userRepository.checkIfUserHasChildWithGivenId(userId, childId))
             return true;
         else
             throw new ObjectNotFoundException("User with id " + userId + " doesn't have a Child with id"
                     + childId + " registered");
-    }
-
-    public static <T> T validateUpdatedValue(T defaultValue, T newValue) {
-        return (newValue != null && !newValue.toString().isEmpty() && !newValue.toString().isBlank()) ? newValue : defaultValue;
     }
 }
