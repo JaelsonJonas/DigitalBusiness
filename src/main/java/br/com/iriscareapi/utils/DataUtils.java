@@ -1,8 +1,10 @@
 package br.com.iriscareapi.utils;
 
+import br.com.iriscareapi.entities.Phone;
 import br.com.iriscareapi.exception.DataUtilsException;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 
 public class DataUtils {
 
@@ -14,12 +16,10 @@ public class DataUtils {
         }
     }
 
-    public static <T, U> void dataUpdate(T dataToUpdate, U dataFromDTO) {
+    public static <E, T> void dataUpdate(E entity, HashMap<T, T> fields) {
         try {
-            for(Field at : dataToUpdate.getClass().getDeclaredFields()) {
-                for(Field atDTO : dataFromDTO.getClass().getDeclaredFields()){
-                    setField(dataToUpdate, at.toString(), DataUtils.validateUpdatedValue(at, atDTO));
-                }
+            for (T field : fields.keySet()) {
+                setField(entity, field.toString(), DataUtils.validateUpdatedValue(field, fields.get(field)));
             }
         } catch (Exception e) {
             throw new DataUtilsException("dataUpdate", e);
@@ -36,5 +36,4 @@ public class DataUtils {
             throw new DataUtilsException("SetField", e);
         }
     }
-
 }

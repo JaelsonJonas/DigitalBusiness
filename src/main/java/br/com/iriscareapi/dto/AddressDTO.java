@@ -1,5 +1,6 @@
 package br.com.iriscareapi.dto;
 
+import br.com.iriscareapi.entities.Address;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
@@ -32,5 +33,14 @@ public class AddressDTO {
 
     @Length(max = 50) @NotNull @NotBlank
     private String state;
+
+    public AddressDTO(Address address) {
+        this.zipCode = address.getZipCode();
+        this.number = address.getNumber();
+        this.street = address.getStreet();
+        this.neighborhood = address.getNeighborhood();
+        this.city = address.getCity();
+        this.state = address.getState();
+    }
 
 }
