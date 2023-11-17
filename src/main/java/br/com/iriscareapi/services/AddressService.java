@@ -11,6 +11,8 @@ import br.com.iriscareapi.utils.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 @Service
 public class AddressService {
 
@@ -32,7 +34,16 @@ public class AddressService {
 
     public void updateAddress(Long adsId, AddressUpdateDTO addressUpdateDTO) throws ObjectNotFoundException {
         Address address = findById(adsId);
-        DataUtils.dataUpdate(address, addressUpdateDTO);
+
+        HashMap<Object, Object> fields = new HashMap<>();
+        fields.put(address.getZipCode(), addressUpdateDTO.getZipCode());
+        fields.put(address.getNumber(), addressUpdateDTO.getNumber());
+        fields.put(address.getStreet(), addressUpdateDTO.getStreet());
+        fields.put(address.getNeighborhood(), addressUpdateDTO.getNeighborhood());
+        fields.put(address.getCity(), addressUpdateDTO.getCity());
+        fields.put(address.getState(), addressUpdateDTO.getState());
+
+        DataUtils.dataUpdate(address, fields);
         saveAddress(address);
     }
 

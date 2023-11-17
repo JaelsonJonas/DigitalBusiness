@@ -1,5 +1,6 @@
 package br.com.iriscareapi.dto;
 
+import br.com.iriscareapi.entities.Phone;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,5 +17,10 @@ public class PhoneDTO {
 
     @NotNull @NotNull @Length(max = 9)
     private String number;
+
+    public PhoneDTO(Phone phone) {
+        this.DDD = phone.getDDD();
+        this.number = phone.getNumber();
+    }
 
 }
