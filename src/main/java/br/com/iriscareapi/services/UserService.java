@@ -127,11 +127,13 @@ public class UserService {
         }
     }
 
-    public void updatePhone(Long phoneId, PhoneUpdateDTO phoneUpdateDTO) throws Exception {
+    public void updatePhone(Long userId, PhoneUpdateDTO phoneUpdateDTO) throws Exception {
+        Long phoneId = findById(userId).getPhone().getId();
         phoneService.updatePhone(phoneId, phoneUpdateDTO);
     }
 
-    public void updateAddress(Long addressId, AddressUpdateDTO addressUpdateDTO) throws Exception {
+    public void updateAddress(Long userId, AddressUpdateDTO addressUpdateDTO) throws Exception {
+        Long addressId = findById(userId).getAddress().getId();
         addressService.updateAddress(addressId, addressUpdateDTO);
     }
 
