@@ -2,6 +2,7 @@ package br.com.iriscareapi.entities;
 
 import br.com.iriscareapi.dto.ChildInsertDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,7 +42,11 @@ public class Child {
     private Boolean active;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Exam> exams;
 
     public Child(ChildInsertDTO dto) {
         this.name = dto.getName();
