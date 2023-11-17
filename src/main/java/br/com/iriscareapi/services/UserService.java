@@ -1,8 +1,6 @@
 package br.com.iriscareapi.services;
 
-import br.com.iriscareapi.dto.ChildInsertDTO;
-import br.com.iriscareapi.dto.UserInsertDTO;
-import br.com.iriscareapi.dto.UserUpdateDTO;
+import br.com.iriscareapi.dto.*;
 import br.com.iriscareapi.entities.Address;
 import br.com.iriscareapi.entities.Child;
 import br.com.iriscareapi.entities.Phone;
@@ -10,10 +8,13 @@ import br.com.iriscareapi.entities.User;
 import br.com.iriscareapi.exception.EntityRegisterException;
 import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.repositories.UserRepository;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -87,8 +88,54 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public ChildFindDTO findChildById(Long childId, Long userId) throws ObjectNotFoundException {
+        if (userHasChildWithGivenId(userId, childId))
+            return childService.parseChildToChildFindDTO(childService.findById(childId));
+
+        return null;
+    }
+
+    public List<ChildFindDTO> findAllChildrenByUserId(Long userId) throws ObjectNotFoundException {
+        return childService.findAllByUserId(userId).stream()
+                            .map(chd -> childService.parseChildToChildFindDTO(chd)).collect(Collectors.toList());
+    }
+
+    public List<ChildFindDTO> findAllActiveChildrenByUserId(Long userId) throws ObjectNotFoundException {
+        return childService.findAllActiveChildrenByUserId(userId).stream()
+                .map(chd -> childService.parseChildToChildFindDTO(chd)).collect(Collectors.toList());
+    }
+
+    public List<ChildFindDTO> findAllInactiveChildrenByUserId(Long userId) throws ObjectNotFoundException {
+        return childService.findAllInactiveChildrenByUserId(userId).stream()
+                .map(chd -> childService.parseChildToChildFindDTO(chd)).collect(Collectors.toList());
+    }
+
+    public void updateChild(Long userId, Long childId, ChildUpdateDTO childUpdateDTO) throws ObjectNotFoundException {
+        if (userHasChildWithGivenId(userId, childId))
+            childService.updateChild(childId, childUpdateDTO);
+    }
+
+    public void changeChildActive(Long userId, Long childId) throws ObjectNotFoundException {
+        if (userRepository.checkIfUserHasChildWithGivenId(userId, childId))
+            childService.changeChildActive(childId);
+    }
+
+    public void changeAllChildActive(Long userId, List<Long> childrenId) throws ObjectNotFoundException {
+        for(Long id : childrenId) {
+            if (userRepository.checkIfUserHasChildWithGivenId(userId, id))
+                childService.changeChildActive(id);
+        }
+    }
+
+    public boolean userHasChildWithGivenId(Long userId, Long childId) throws ObjectNotFoundException {
+        if (userRepository.checkIfUserHasChildWithGivenId(userId, childId))
+            return true;
+        else
+            throw new ObjectNotFoundException("User with id " + userId + " doesn't have a Child with id"
+                    + childId + " registered");
+    }
+
     public static <T> T validateUpdatedValue(T defaultValue, T newValue) {
         return (newValue != null && !newValue.toString().isEmpty() && !newValue.toString().isBlank()) ? newValue : defaultValue;
     }
-
 }

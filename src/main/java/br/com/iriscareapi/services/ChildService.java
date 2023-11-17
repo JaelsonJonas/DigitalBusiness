@@ -1,5 +1,6 @@
 package br.com.iriscareapi.services;
 
+import br.com.iriscareapi.dto.ChildFindDTO;
 import br.com.iriscareapi.dto.ChildUpdateDTO;
 import br.com.iriscareapi.entities.Child;
 import br.com.iriscareapi.exception.EntityRegisterException;
@@ -44,7 +45,7 @@ public class ChildService {
         }
     }
 
-    public void updateChild(ChildUpdateDTO childUpdateDTO, Long childId) throws ObjectNotFoundException {
+    public void updateChild(Long childId, ChildUpdateDTO childUpdateDTO) throws ObjectNotFoundException {
         Child child = findById(childId);
         dataUpdate(child, childUpdateDTO);
         saveChild(child);
@@ -76,6 +77,10 @@ public class ChildService {
 
         childToAtt.setBirthday(validateUpdatedValue(childToAtt.getBirthday(),
                                                     LocalDate.parse(childUpdateDTO.getBirthday())));
+    }
+
+    public ChildFindDTO parseChildToChildFindDTO(Child child) {
+        return new ChildFindDTO(child.getName(), child.getCpf(), child.getBirthday().toString(), child.getActive());
     }
 
     public static <T> T validateUpdatedValue(T defaultValue, T newValue) {
