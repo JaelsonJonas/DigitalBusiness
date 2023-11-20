@@ -1,4 +1,4 @@
-package br.com.iriscareapi.dto;
+package br.com.iriscareapi.dto.address;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

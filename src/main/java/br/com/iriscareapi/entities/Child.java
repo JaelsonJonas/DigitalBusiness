@@ -1,6 +1,6 @@
 package br.com.iriscareapi.entities;
 
-import br.com.iriscareapi.dto.ChildInsertDTO;
+import br.com.iriscareapi.dto.child.ChildInsertDTO;
 import br.com.iriscareapi.utils.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;

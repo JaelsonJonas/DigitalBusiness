@@ -1,5 +1,6 @@
-package br.com.iriscareapi.dto;
+package br.com.iriscareapi.dto.child;
 
+import br.com.iriscareapi.dto.exam.ExamFindDTO;
 import br.com.iriscareapi.entities.Child;
 import lombok.AllArgsConstructor;
 import lombok.Data;

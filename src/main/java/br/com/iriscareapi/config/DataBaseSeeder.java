@@ -1,9 +1,9 @@
 package br.com.iriscareapi.config;
 
-import br.com.iriscareapi.dto.AddressDTO;
-import br.com.iriscareapi.dto.ChildInsertDTO;
-import br.com.iriscareapi.dto.PhoneDTO;
-import br.com.iriscareapi.dto.UserInsertDTO;
+import br.com.iriscareapi.dto.address.AddressDTO;
+import br.com.iriscareapi.dto.child.ChildInsertDTO;
+import br.com.iriscareapi.dto.phone.PhoneDTO;
+import br.com.iriscareapi.dto.user.UserInsertDTO;
 import br.com.iriscareapi.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

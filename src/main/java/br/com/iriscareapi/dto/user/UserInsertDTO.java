@@ -1,7 +1,8 @@
-package br.com.iriscareapi.dto;
+package br.com.iriscareapi.dto.user;
 
+import br.com.iriscareapi.dto.address.AddressDTO;
+import br.com.iriscareapi.dto.phone.PhoneDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -11,8 +12,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
-
-import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor

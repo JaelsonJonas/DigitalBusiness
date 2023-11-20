@@ -1,4 +1,4 @@
-package br.com.iriscareapi.dto;
+package br.com.iriscareapi.dto.exam;
 
 import br.com.iriscareapi.entities.Exam;
 import lombok.AllArgsConstructor;

@@ -1,10 +1,9 @@
 package br.com.iriscareapi.entities;
 
-import br.com.iriscareapi.dto.UserInsertDTO;
+import br.com.iriscareapi.dto.user.UserInsertDTO;
 import br.com.iriscareapi.utils.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;

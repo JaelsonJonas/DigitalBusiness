@@ -1,4 +1,4 @@
-package br.com.iriscareapi.dto;
+package br.com.iriscareapi.dto.phone;
 
 import br.com.iriscareapi.entities.Phone;
 import jakarta.validation.constraints.NotNull;

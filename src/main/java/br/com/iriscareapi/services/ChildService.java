@@ -1,20 +1,18 @@
 package br.com.iriscareapi.services;
 
-import br.com.iriscareapi.dto.ChildFindDTO;
-import br.com.iriscareapi.dto.ChildUpdateDTO;
-import br.com.iriscareapi.dto.ExamFindDTO;
-import br.com.iriscareapi.dto.ExamInsertDTO;
+import br.com.iriscareapi.dto.child.ChildUpdateDTO;
+import br.com.iriscareapi.dto.exam.ExamFindDTO;
+import br.com.iriscareapi.dto.exam.ExamInsertDTO;
+import br.com.iriscareapi.dto.exam.ExamUpdateDTO;
 import br.com.iriscareapi.entities.Child;
 import br.com.iriscareapi.entities.Exam;
 import br.com.iriscareapi.exception.EntityRegisterException;
 import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.repositories.ChildRepository;
 import br.com.iriscareapi.utils.DataUtils;
-import br.com.iriscareapi.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -90,7 +88,12 @@ public class ChildService {
         saveChild(child);
     }
 
-    public void dataUpdate(Child childToAtt, ChildUpdateDTO childUpdateDTO) throws Exception {
+    public void updateExam(Long child, Long examId, ExamUpdateDTO examUpdateDTO) throws Exception {
+        if(childHasExamWithGivenId(child, examId))
+            examService.updateExam(examId, examUpdateDTO);
+    }
+
+   /* public void dataUpdate(Child childToAtt, ChildUpdateDTO childUpdateDTO) throws Exception {
         childToAtt.setName(DataUtils.validateUpdatedValue(childToAtt.getName(),
                                                     childUpdateDTO.getName()));
 
@@ -99,7 +102,7 @@ public class ChildService {
 
         childToAtt.setBirthday(DataUtils.validateUpdatedValue(childToAtt.getBirthday(),
                                     DateUtils.parseString(childUpdateDTO.getBirthday())));
-    }
+    } */
 
     public boolean childHasExamWithGivenId(Long childId, Long examId) throws ObjectNotFoundException {
         if (childRepository.checkIfChildHasExamWithGivenId(childId, examId))

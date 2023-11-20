@@ -1,6 +1,6 @@
 package br.com.iriscareapi.entities;
 
-import br.com.iriscareapi.dto.ExamInsertDTO;
+import br.com.iriscareapi.dto.exam.ExamInsertDTO;
 import br.com.iriscareapi.utils.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;

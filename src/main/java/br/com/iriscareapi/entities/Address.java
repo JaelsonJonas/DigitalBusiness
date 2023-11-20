@@ -1,6 +1,6 @@
 package br.com.iriscareapi.entities;
 
-import br.com.iriscareapi.dto.AddressDTO;
+import br.com.iriscareapi.dto.address.AddressDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

@@ -1,6 +1,6 @@
 package br.com.iriscareapi.entities;
 
-import br.com.iriscareapi.dto.PhoneDTO;
+import br.com.iriscareapi.dto.phone.PhoneDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
