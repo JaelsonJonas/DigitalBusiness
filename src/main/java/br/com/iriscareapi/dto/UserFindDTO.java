@@ -49,10 +49,7 @@ public class UserFindDTO {
         this.phone = new PhoneDTO(user.getPhone());
         this.address = new AddressDTO(user.getAddress());
         this.children = user.getChildren()
-                        .stream().map(ch -> new ChildFindDTO(ch.getName(),
-                                                            ch.getCpf(),
-                                                            ch.getBirthday().toString(),
-                                                            ch.getActive())).collect(Collectors.toList());
+                        .stream().map(ChildFindDTO::new).collect(Collectors.toList());
     }
 
 }

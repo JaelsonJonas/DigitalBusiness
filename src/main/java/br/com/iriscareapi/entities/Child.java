@@ -1,6 +1,7 @@
 package br.com.iriscareapi.entities;
 
 import br.com.iriscareapi.dto.ChildInsertDTO;
+import br.com.iriscareapi.utils.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -41,18 +42,22 @@ public class Child {
 
     private Boolean active;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     private User user;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Exam> exams;
 
-    public Child(ChildInsertDTO dto) {
+    public Child(ChildInsertDTO dto) throws Exception {
         this.name = dto.getName();
         this.cpf = dto.getCpf();
-        this.birthday = LocalDate.parse(dto.getBirthday());
+        this.birthday = DateUtils.parseString(dto.getBirthday());
         this.active = true;
+    }
+
+    public void addExam(Exam exam) {
+        this.exams.add(exam);
     }
 
 }

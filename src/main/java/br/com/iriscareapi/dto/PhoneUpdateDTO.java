@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.Length;
 public class PhoneUpdateDTO {
 
     @Length(min = 1, max = 3)
-    private String DDD;
+    private String ddd;
 
     @Length(max = 9)
     private String number;

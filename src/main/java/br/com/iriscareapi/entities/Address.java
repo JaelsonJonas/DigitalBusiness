@@ -21,8 +21,8 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 9, nullable = false)
-    @JsonFormat(pattern = "nnnnn-nnn")
+    @Column(length = 15, nullable = false)
+    @JsonFormat(pattern = "#####-###")
     private String zipCode;
 
     @Column(nullable = false)

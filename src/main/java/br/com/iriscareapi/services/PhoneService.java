@@ -6,12 +6,8 @@ import br.com.iriscareapi.exception.EntityRegisterException;
 import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.repositories.PhoneRepository;
 import br.com.iriscareapi.utils.DataUtils;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class PhoneService {
@@ -32,14 +28,9 @@ public class PhoneService {
         }
     }
 
-    public void updatePhone(Long phoneId, PhoneUpdateDTO phoneUpdateDTO) throws ObjectNotFoundException {
+    public void updatePhone(Long phoneId, PhoneUpdateDTO phoneUpdateDTO) throws Exception {
         Phone phone = findById(phoneId);
-
-        HashMap<Object, Object> fields = new HashMap<>();
-        fields.put(phone.getDDD(),phoneUpdateDTO.getDDD());
-        fields.put(phone.getNumber(), phoneUpdateDTO.getNumber());
-
-        DataUtils.dataUpdate(phone, fields);
+        DataUtils.dataUpdate(phone, phoneUpdateDTO);
         savePhone(phone);
     }
 
