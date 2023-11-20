@@ -1,6 +1,6 @@
 package br.com.iriscareapi.services;
 
-import br.com.iriscareapi.dto.PhoneUpdateDTO;
+import br.com.iriscareapi.dto.phone.PhoneUpdateDTO;
 import br.com.iriscareapi.entities.Phone;
 import br.com.iriscareapi.exception.EntityRegisterException;
 import br.com.iriscareapi.exception.ObjectNotFoundException;

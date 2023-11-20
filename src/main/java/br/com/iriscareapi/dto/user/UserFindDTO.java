@@ -1,18 +1,13 @@
-package br.com.iriscareapi.dto;
+package br.com.iriscareapi.dto.user;
 
-import br.com.iriscareapi.entities.Address;
-import br.com.iriscareapi.entities.Child;
-import br.com.iriscareapi.entities.Phone;
+import br.com.iriscareapi.dto.address.AddressDTO;
+import br.com.iriscareapi.dto.child.ChildFindDTO;
+import br.com.iriscareapi.dto.phone.PhoneDTO;
 import br.com.iriscareapi.entities.User;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.br.CPF;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -16,7 +16,7 @@ public class DateUtils {
         }
         catch (Exception e) {
             e.printStackTrace();
-            throw new Exception("Error trying parse " + date + " to Calendar entity");
+            throw new Exception("Error trying parse " + date + " to Localdate entity");
         }
     }
 

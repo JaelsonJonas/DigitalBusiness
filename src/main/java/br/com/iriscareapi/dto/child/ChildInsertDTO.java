@@ -1,4 +1,4 @@
-package br.com.iriscareapi.dto;
+package br.com.iriscareapi.dto.child;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;

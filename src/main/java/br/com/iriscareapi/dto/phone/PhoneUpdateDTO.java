@@ -1,4 +1,4 @@
-package br.com.iriscareapi.dto;
+package br.com.iriscareapi.dto.phone;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

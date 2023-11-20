@@ -1,4 +1,4 @@
-package br.com.iriscareapi.dto;
+package br.com.iriscareapi.dto.address;
 
 import br.com.iriscareapi.entities.Address;
 import com.fasterxml.jackson.annotation.JsonFormat;

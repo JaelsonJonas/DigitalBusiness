@@ -1,13 +1,12 @@
 package br.com.iriscareapi.services;
 
-import br.com.iriscareapi.dto.ExamFindDTO;
-import br.com.iriscareapi.dto.ExamInsertDTO;
-import br.com.iriscareapi.entities.Child;
+import br.com.iriscareapi.dto.exam.ExamFindDTO;
+import br.com.iriscareapi.dto.exam.ExamUpdateDTO;
 import br.com.iriscareapi.entities.Exam;
-import br.com.iriscareapi.entities.Phone;
 import br.com.iriscareapi.exception.EntityRegisterException;
 import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.repositories.ExamRepository;
+import br.com.iriscareapi.utils.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +40,12 @@ public class ExamService {
         } catch (Exception e) {
             throw new EntityRegisterException("Exam", e.getMessage());
         }
+    }
+
+    public void updateExam(Long examId, ExamUpdateDTO examUpdateDTO) throws Exception {
+        Exam exam = findById(examId);
+        DataUtils.dataUpdate(exam, examUpdateDTO);
+        saveExam(exam);
     }
 
 }
