@@ -11,8 +11,8 @@ import org.hibernate.validator.constraints.Length;
 @Data
 public class AddressUpdateDTO {
 
-    @Length(max = 9)
-    @JsonFormat(pattern = "nnnnn-nnn")
+    @Length(max = 15)
+    @JsonFormat(pattern = "#####-###")
     private String zipCode;
 
     private String number;
@@ -23,7 +23,7 @@ public class AddressUpdateDTO {
     @Length(max = 50)
     private String neighborhood;
 
-    @Length(max = 9)
+    @Length(max = 50)
     private String city;
 
     @Length(max = 50)

@@ -24,20 +24,20 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.FOUND).body(new UserFindDTO(userService.findById(id)));
     }
 
-    @PostMapping(value = "/new")
-    public ResponseEntity<Void> registerNewUser(@RequestBody @Valid UserInsertDTO userInsertDTO) {
+    @PostMapping
+    public ResponseEntity<Void> registerNewUser(@RequestBody @Valid UserInsertDTO userInsertDTO) throws Exception {
         userService.registerUser(userInsertDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> updateUser(@PathVariable Long id, @RequestBody @Valid UserUpdateDTO updateDTO) throws ObjectNotFoundException {
+    public ResponseEntity<Void> updateUser(@PathVariable Long id, @RequestBody @Valid UserUpdateDTO updateDTO) throws Exception {
         userService.updateUser(updateDTO, id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PostMapping(value = "/{id}/children")
-    public ResponseEntity<Void> registerNewChild(@RequestBody @Valid ChildInsertDTO childInsertDTO, @PathVariable Long id) throws ObjectNotFoundException {
+    public ResponseEntity<Void> registerNewChild(@RequestBody @Valid ChildInsertDTO childInsertDTO, @PathVariable Long id) throws Exception {
         userService.registerNewChild(childInsertDTO, id);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -65,7 +65,7 @@ public class UserController {
     @PutMapping(value = "/{id}/children/{childId}")
     public ResponseEntity<Void> updateChild(@PathVariable Long id,
                                             @PathVariable Long childId,
-                                            @RequestBody @Valid ChildUpdateDTO childUpdateDTO) throws ObjectNotFoundException {
+                                            @RequestBody @Valid ChildUpdateDTO childUpdateDTO) throws Exception {
         userService.updateChild(id, childId, childUpdateDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

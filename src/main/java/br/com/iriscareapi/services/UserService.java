@@ -9,10 +9,10 @@ import br.com.iriscareapi.exception.EntityRegisterException;
 import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.repositories.UserRepository;
 import br.com.iriscareapi.utils.DataUtils;
+import br.com.iriscareapi.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,10 +36,12 @@ public class UserService {
                 .findById(id).orElseThrow(() -> new ObjectNotFoundException("User with id " + id + " not found."));
     }
 
-    public void registerUser(UserInsertDTO userInsertDTO) {
+    public void registerUser(UserInsertDTO userInsertDTO) throws Exception {
         User user = new User(userInsertDTO);
-        Address address = new Address(userInsertDTO.getAddressDTO());
-        Phone phone = new Phone(userInsertDTO.getPhoneDTO());
+        Address address = new Address(userInsertDTO.getAddress());
+        Phone phone = new Phone(userInsertDTO.getPhone());
+
+        saveUser(user);
 
         address.setUser(user);
         addressService.saveAddress(address);
@@ -52,9 +54,9 @@ public class UserService {
         saveUser(user);
     }
 
-    public void updateUser(UserUpdateDTO userUpdateDTO, Long id) throws ObjectNotFoundException {
+    public void updateUser(UserUpdateDTO userUpdateDTO, Long id) throws Exception {
         User user = findById(id);
-        dataUpdate(user, userUpdateDTO);
+        DataUtils.dataUpdate(user, userUpdateDTO);
         saveUser(user);
     }
 
@@ -66,12 +68,12 @@ public class UserService {
         }
     }
 
-    public void dataUpdate(User userToAtt, UserUpdateDTO userUpdateDTO) {
+    public void dataUpdate(User userToAtt, UserUpdateDTO userUpdateDTO) throws Exception {
         userToAtt.setName(DataUtils.validateUpdatedValue(userToAtt.getName(), userToAtt.getName()));
 
         userToAtt.setCpf(DataUtils.validateUpdatedValue(userToAtt.getCpf(), userToAtt.getCpf()));
 
-        userToAtt.setBirthday(DataUtils.validateUpdatedValue(userToAtt.getBirthday(), LocalDate.parse(userUpdateDTO.getBirthday())));
+        userToAtt.setBirthday(DataUtils.validateUpdatedValue(userToAtt.getBirthday(), DateUtils.parseString(userUpdateDTO.getBirthday())));
 
         userToAtt.setEmail(DataUtils.validateUpdatedValue(userToAtt.getEmail(), userUpdateDTO.getEmail()));
 
@@ -79,44 +81,44 @@ public class UserService {
 
     }
 
-    public void registerNewChild(ChildInsertDTO childInsertDTO, Long userId) throws ObjectNotFoundException {
+    public void registerNewChild(ChildInsertDTO childInsertDTO, Long userId) throws Exception {
         User user = findById(userId);
         Child child = new Child(childInsertDTO);
         child.setUser(user);
         childService.saveChild(child);
         user.addChild(child);
-        userRepository.save(user);
+        saveUser(user);
     }
 
     public ChildFindDTO findChildById(Long childId, Long userId) throws ObjectNotFoundException {
         if (userHasChildWithGivenId(userId, childId))
-            return childService.parseChildToChildFindDTO(childService.findById(childId));
+            return new ChildFindDTO(childService.findById(childId));
 
         return null;
     }
 
     public List<ChildFindDTO> findAllChildrenByUserId(Long userId) throws ObjectNotFoundException {
         return childService.findAllByUserId(userId).stream()
-                            .map(chd -> childService.parseChildToChildFindDTO(chd)).collect(Collectors.toList());
+                            .map(ChildFindDTO::new).collect(Collectors.toList());
     }
 
     public List<ChildFindDTO> findAllActiveChildrenByUserId(Long userId) throws ObjectNotFoundException {
         return childService.findAllActiveChildrenByUserId(userId).stream()
-                .map(chd -> childService.parseChildToChildFindDTO(chd)).collect(Collectors.toList());
+                .map(ChildFindDTO::new).collect(Collectors.toList());
     }
 
     public List<ChildFindDTO> findAllInactiveChildrenByUserId(Long userId) throws ObjectNotFoundException {
         return childService.findAllInactiveChildrenByUserId(userId).stream()
-                .map(chd -> childService.parseChildToChildFindDTO(chd)).collect(Collectors.toList());
+                .map(ChildFindDTO::new).collect(Collectors.toList());
     }
 
-    public void updateChild(Long userId, Long childId, ChildUpdateDTO childUpdateDTO) throws ObjectNotFoundException {
+    public void updateChild(Long userId, Long childId, ChildUpdateDTO childUpdateDTO) throws Exception {
         if (userHasChildWithGivenId(userId, childId))
             childService.updateChild(childId, childUpdateDTO);
     }
 
     public void changeChildActive(Long userId, Long childId) throws ObjectNotFoundException {
-        if (userRepository.checkIfUserHasChildWithGivenId(userId, childId))
+        if (userHasChildWithGivenId(userId, childId))
             childService.changeChildActive(childId);
     }
 

@@ -1,5 +1,7 @@
 package br.com.iriscareapi.entities;
 
+import br.com.iriscareapi.dto.ExamInsertDTO;
+import br.com.iriscareapi.utils.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
@@ -33,5 +36,13 @@ public class Exam {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     private Child child;
+
+    public Exam(ExamInsertDTO examInsertDTO) throws Exception {
+        this.name = examInsertDTO.getName();
+        this.date = DateUtils.parseString(examInsertDTO.getDate());
+        if (Objects.nonNull(examInsertDTO.getDescription())) {
+            this.description = examInsertDTO.getDescription();
+        }
+    }
 
 }

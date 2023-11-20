@@ -1,7 +1,10 @@
 package br.com.iriscareapi.entities;
 
 import br.com.iriscareapi.dto.UserInsertDTO;
+import br.com.iriscareapi.utils.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -48,22 +51,23 @@ public class User {
     private Boolean active;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
     private Phone phone;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Address address;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private List<Child> children;
 
     public void addChild(Child child) {
         this.children.add(child);
     }
 
-    public User(UserInsertDTO userInsertDTO) {
+    public User(UserInsertDTO userInsertDTO) throws Exception {
         this.name = userInsertDTO.getName();
         this.cpf = userInsertDTO.getCpf();
-        this.birthday = LocalDate.parse(userInsertDTO.getBirthday());
+        this.birthday = DateUtils.parseString(userInsertDTO.getBirthday());
         this.email = userInsertDTO.getEmail();
         this.password = userInsertDTO.getPassword();
         this.active = true;

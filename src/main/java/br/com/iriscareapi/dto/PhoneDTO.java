@@ -13,13 +13,13 @@ import org.hibernate.validator.constraints.Length;
 public class PhoneDTO {
 
     @NotNull @NotNull @Length(min = 1, max = 3)
-    private String DDD;
+    private String ddd;
 
     @NotNull @NotNull @Length(max = 9)
     private String number;
 
     public PhoneDTO(Phone phone) {
-        this.DDD = phone.getDDD();
+        this.ddd = phone.getDdd();
         this.number = phone.getNumber();
     }
 

@@ -44,4 +44,19 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
     }
+
+    @ExceptionHandler(DataUtilsException.class)
+    public ResponseEntity<ErrorMessage> dataUtilsException(DataUtilsException exception) {
+
+        exceptionClassName = ObjectNotFoundException.class.getName();
+        String exMsg = exception.getMessage();
+
+        if(Objects.isNull(exMsg))  exMsg = "Error trying to execute DataUtils method";
+
+        ErrorMessage errorMessage = new ErrorMessage(exceptionClassName.
+                substring(exceptionClassName.lastIndexOf(".") + 1),
+                exMsg);
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
+    }
 }

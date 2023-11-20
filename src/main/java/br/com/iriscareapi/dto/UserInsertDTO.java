@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Data
 public class UserInsertDTO {
 
@@ -36,10 +38,10 @@ public class UserInsertDTO {
     @NotNull @NotBlank @Length(max = 100)
     private String password;
 
-    @NotNull @NotBlank
-    private AddressDTO addressDTO;
+    @NotNull
+    private AddressDTO address;
 
-    @NotNull @NotBlank
-    private PhoneDTO phoneDTO;
+    @NotNull
+    private PhoneDTO phone;
 
 }
