@@ -42,6 +42,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deactivateUser(@PathVariable Long id) throws Exception {
+       userService.changeUserActive(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
     @PostMapping(value = "/{id}/children")
     public ResponseEntity<Void> registerNewChild(@RequestBody @Valid ChildInsertDTO childInsertDTO, @PathVariable Long id) throws Exception {
         userService.registerNewChild(childInsertDTO, id);

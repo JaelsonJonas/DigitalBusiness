@@ -25,7 +25,8 @@ public class ChildService {
     private ExamService examService;
 
     public Child findById(Long id) throws ObjectNotFoundException {
-        return childRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Child with id " + id + " not found"));
+        return childRepository.findById(id).
+                                orElseThrow(() -> new ObjectNotFoundException("Child with id " + id + " not found"));
     }
 
     public List<Child> findAllByUserId(Long id) throws ObjectNotFoundException {
@@ -93,7 +94,22 @@ public class ChildService {
             examService.updateExam(examId, examUpdateDTO);
     }
 
-   /* public void dataUpdate(Child childToAtt, ChildUpdateDTO childUpdateDTO) throws Exception {
+    public List<Long> findChildIdsByUserId(Long id) throws ObjectNotFoundException {
+        userHasAnyChild(id);
+        return childRepository.findChildIdsByUserId(id);
+    }
+
+
+
+    public boolean childHasExamWithGivenId(Long childId, Long examId) throws ObjectNotFoundException {
+        if (childRepository.checkIfChildHasExamWithGivenId(childId, examId))
+            return true;
+        else
+            throw new ObjectNotFoundException("User with id " + childId + " doesn't have a Child with id"
+                    + examId + " registered");
+    }
+
+    /* public void dataUpdate(Child childToAtt, ChildUpdateDTO childUpdateDTO) throws Exception {
         childToAtt.setName(DataUtils.validateUpdatedValue(childToAtt.getName(),
                                                     childUpdateDTO.getName()));
 
@@ -103,13 +119,5 @@ public class ChildService {
         childToAtt.setBirthday(DataUtils.validateUpdatedValue(childToAtt.getBirthday(),
                                     DateUtils.parseString(childUpdateDTO.getBirthday())));
     } */
-
-    public boolean childHasExamWithGivenId(Long childId, Long examId) throws ObjectNotFoundException {
-        if (childRepository.checkIfChildHasExamWithGivenId(childId, examId))
-            return true;
-        else
-            throw new ObjectNotFoundException("User with id " + childId + " doesn't have a Child with id"
-                    + examId + " registered");
-    }
 
 }

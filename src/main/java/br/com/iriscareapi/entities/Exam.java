@@ -34,6 +34,10 @@ public class Exam {
     @Column(name = "exam_desc", length = 250)
     private String description;
 
+    @Column(name = "exam_img")
+    @Lob
+    private String image64;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     private Child child;
 

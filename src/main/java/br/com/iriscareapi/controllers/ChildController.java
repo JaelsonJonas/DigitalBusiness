@@ -3,7 +3,6 @@ package br.com.iriscareapi.controllers;
 import br.com.iriscareapi.dto.exam.ExamFindDTO;
 import br.com.iriscareapi.dto.exam.ExamInsertDTO;
 import br.com.iriscareapi.dto.exam.ExamUpdateDTO;
-import br.com.iriscareapi.dto.user.UserUpdateDTO;
 import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.services.ChildService;
 import jakarta.validation.Valid;

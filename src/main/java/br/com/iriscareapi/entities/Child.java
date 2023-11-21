@@ -49,6 +49,9 @@ public class Child {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Exam> exams;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Analysis> analyses;
+
     public Child(ChildInsertDTO dto) throws Exception {
         this.name = dto.getName();
         this.cpf = dto.getCpf();
@@ -58,6 +61,10 @@ public class Child {
 
     public void addExam(Exam exam) {
         this.exams.add(exam);
+    }
+
+    public void addAnalysis(Analysis analysis) {
+        this.analyses.add(analysis);
     }
 
 }

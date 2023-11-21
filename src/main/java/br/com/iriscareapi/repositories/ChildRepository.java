@@ -21,4 +21,7 @@ public interface ChildRepository extends JpaRepository<Child, Long> {
             "JOIN c.exams exms WHERE c.id = :childId AND exms.id = :examId")
     boolean checkIfChildHasExamWithGivenId(@Param("childId") Long childId, @Param("examId") Long examId);
 
+    @Query("SELECT c.id FROM User u JOIN u.children c WHERE u.id = :userId")
+    List<Long> findChildIdsByUserId(@Param("userId") Long userId);
+
 }
