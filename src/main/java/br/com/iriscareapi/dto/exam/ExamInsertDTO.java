@@ -24,4 +24,6 @@ public class ExamInsertDTO {
     @Length(max = 50)
     private String description;
 
+    private String image;
+
 }

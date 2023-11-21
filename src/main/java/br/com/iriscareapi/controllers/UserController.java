@@ -1,13 +1,9 @@
 package br.com.iriscareapi.controllers;
 
 import br.com.iriscareapi.dto.address.AddressUpdateDTO;
-import br.com.iriscareapi.dto.child.ChildFindDTO;
-import br.com.iriscareapi.dto.child.ChildInsertDTO;
-import br.com.iriscareapi.dto.child.ChildUpdateDTO;
+import br.com.iriscareapi.dto.child.*;
 import br.com.iriscareapi.dto.phone.PhoneUpdateDTO;
-import br.com.iriscareapi.dto.user.UserFindDTO;
-import br.com.iriscareapi.dto.user.UserInsertDTO;
-import br.com.iriscareapi.dto.user.UserUpdateDTO;
+import br.com.iriscareapi.dto.user.*;
 import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.services.UserService;
 import jakarta.validation.Valid;
@@ -40,6 +36,12 @@ public class UserController {
     public ResponseEntity<Void> updateUser(@PathVariable Long id, @RequestBody @Valid UserUpdateDTO updateDTO) throws Exception {
         userService.updateUser(updateDTO, id);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deactivateUser(@PathVariable Long id) throws Exception {
+       userService.changeUserActive(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PostMapping(value = "/{id}/children")

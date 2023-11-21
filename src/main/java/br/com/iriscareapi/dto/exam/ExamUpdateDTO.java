@@ -20,4 +20,6 @@ public class ExamUpdateDTO {
     @Length(max = 250)
     private String description;
 
+    private String image;
+
 }

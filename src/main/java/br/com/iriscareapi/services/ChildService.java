@@ -1,9 +1,12 @@
 package br.com.iriscareapi.services;
 
+import br.com.iriscareapi.dto.analysis.AnalysisFindDTO;
+import br.com.iriscareapi.dto.analysis.AnalysisInsertDTO;
 import br.com.iriscareapi.dto.child.ChildUpdateDTO;
 import br.com.iriscareapi.dto.exam.ExamFindDTO;
 import br.com.iriscareapi.dto.exam.ExamInsertDTO;
 import br.com.iriscareapi.dto.exam.ExamUpdateDTO;
+import br.com.iriscareapi.entities.Analysis;
 import br.com.iriscareapi.entities.Child;
 import br.com.iriscareapi.entities.Exam;
 import br.com.iriscareapi.exception.EntityRegisterException;
@@ -24,8 +27,12 @@ public class ChildService {
     @Autowired
     private ExamService examService;
 
+    @Autowired
+    private AnalysisService analysisService;
+
     public Child findById(Long id) throws ObjectNotFoundException {
-        return childRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Child with id " + id + " not found"));
+        return childRepository.findById(id).
+                                orElseThrow(() -> new ObjectNotFoundException("Child with id " + id + " not found"));
     }
 
     public List<Child> findAllByUserId(Long id) throws ObjectNotFoundException {
@@ -93,7 +100,47 @@ public class ChildService {
             examService.updateExam(examId, examUpdateDTO);
     }
 
-   /* public void dataUpdate(Child childToAtt, ChildUpdateDTO childUpdateDTO) throws Exception {
+    public List<Long> findChildIdsByUserId(Long id) throws ObjectNotFoundException {
+        userHasAnyChild(id);
+        return childRepository.findChildIdsByUserId(id);
+    }
+
+    public boolean childHasExamWithGivenId(Long childId, Long examId) throws ObjectNotFoundException {
+        if (childRepository.checkIfChildHasExamWithGivenId(childId, examId))
+            return true;
+        else
+            throw new ObjectNotFoundException("User with id " + childId + " doesn't have a Child with id"
+                    + examId + " registered");
+    }
+
+    public AnalysisFindDTO findAnalysisById(Long userId, Long analysisId) throws ObjectNotFoundException {
+        if(childHasAnalysisWithGivenId(userId, analysisId))
+            return new AnalysisFindDTO(analysisService.findById(analysisId));
+        return null;
+    }
+
+    public List<AnalysisFindDTO> finAllAnalysesByChildId(Long id) throws ObjectNotFoundException {
+        return analysisService.findAllByChildId(id);
+    }
+
+    public void registerNewAnalysis(Long id, AnalysisInsertDTO analysisInsertDTO) throws ObjectNotFoundException {
+        Child child = findById(id);
+        Analysis analysis = new Analysis(analysisInsertDTO);
+        analysis.setChild(child);
+        analysisService.saveAnalysis(analysis);
+        child.addAnalysis(analysis);
+        saveChild(child);
+    }
+
+    public boolean childHasAnalysisWithGivenId(Long childId, Long analysisId) throws ObjectNotFoundException {
+        if (childRepository.checkIfChildHasAnalysisWithGivenId(childId, analysisId))
+            return true;
+        else
+            throw new ObjectNotFoundException("User with id " + childId + " doesn't have a Child with id"
+                    + analysisId + " registered");
+    }
+
+    /* public void dataUpdate(Child childToAtt, ChildUpdateDTO childUpdateDTO) throws Exception {
         childToAtt.setName(DataUtils.validateUpdatedValue(childToAtt.getName(),
                                                     childUpdateDTO.getName()));
 
@@ -103,13 +150,5 @@ public class ChildService {
         childToAtt.setBirthday(DataUtils.validateUpdatedValue(childToAtt.getBirthday(),
                                     DateUtils.parseString(childUpdateDTO.getBirthday())));
     } */
-
-    public boolean childHasExamWithGivenId(Long childId, Long examId) throws ObjectNotFoundException {
-        if (childRepository.checkIfChildHasExamWithGivenId(childId, examId))
-            return true;
-        else
-            throw new ObjectNotFoundException("User with id " + childId + " doesn't have a Child with id"
-                    + examId + " registered");
-    }
 
 }
