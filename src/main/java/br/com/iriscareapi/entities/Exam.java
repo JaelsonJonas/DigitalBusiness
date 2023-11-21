@@ -35,8 +35,7 @@ public class Exam {
     private String description;
 
     @Column(name = "exam_img")
-    @Lob
-    private String image64;
+    private String image;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     private Child child;

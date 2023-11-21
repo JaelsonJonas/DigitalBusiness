@@ -1,5 +1,6 @@
 package br.com.iriscareapi.entities;
 
+import br.com.iriscareapi.dto.analysis.AnalysisInsertDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,5 +35,10 @@ public class Analysis {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     private Child child;
+
+    public Analysis(AnalysisInsertDTO analysisInsertDTO) {
+        this.image = analysisInsertDTO.getImage();
+        this.leucocoria = analysisInsertDTO.getLeucocoria();
+    }
 
 }

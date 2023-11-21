@@ -2,6 +2,7 @@ package br.com.iriscareapi.services;
 
 import br.com.iriscareapi.dto.analysis.AnalysisFindDTO;
 import br.com.iriscareapi.entities.Analysis;
+import br.com.iriscareapi.exception.EntityRegisterException;
 import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.repositories.AnalysisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,17 @@ public class AnalysisService {
                 orElseThrow(() -> new ObjectNotFoundException("Analysis with id " + id + " not found"));
     }
 
-    public List<AnalysisFindDTO> findAllByChildId(Long id) {
+    public List<AnalysisFindDTO> findAllByChildId(Long id) throws ObjectNotFoundException {
+        childHasAnyAnalysis(id);
         return analysisRepository.findAllByChildId(id).stream().map(AnalysisFindDTO::new).collect(Collectors.toList());
+    }
+
+    public void saveAnalysis(Analysis analysis) {
+        try {
+            analysisRepository.saveAndFlush(analysis);
+        } catch (Exception e) {
+            throw new EntityRegisterException("Analysis", e.getMessage());
+        }
     }
 
     public void childHasAnyAnalysis(Long id) throws ObjectNotFoundException {

@@ -1,8 +1,7 @@
 package br.com.iriscareapi.controllers;
 
-import br.com.iriscareapi.dto.exam.ExamFindDTO;
-import br.com.iriscareapi.dto.exam.ExamInsertDTO;
-import br.com.iriscareapi.dto.exam.ExamUpdateDTO;
+import br.com.iriscareapi.dto.analysis.*;
+import br.com.iriscareapi.dto.exam.*;
 import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.services.ChildService;
 import jakarta.validation.Valid;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/children")
+@RequestMapping(value = "/api/child")
 public class ChildController {
 
     @Autowired
@@ -44,4 +43,21 @@ public class ChildController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @GetMapping(value = "/{id}/analysis/{alId}")
+    public ResponseEntity<AnalysisFindDTO> findAnalysisById(@PathVariable Long id,
+                                                            @PathVariable Long alId) throws ObjectNotFoundException {
+        return ResponseEntity.status(HttpStatus.FOUND).body(childService.findAnalysisById(id, alId));
+    }
+
+    @GetMapping(value = "/{id}/analysis")
+    public ResponseEntity<List<AnalysisFindDTO>> finAllAnalysesByChildId(@PathVariable Long id) throws ObjectNotFoundException {
+        return ResponseEntity.status(HttpStatus.FOUND).body(childService.finAllAnalysesByChildId(id));
+    }
+
+    @PostMapping("/{id}/analysis")
+    public ResponseEntity<Void> registerNewAnalysis(@PathVariable Long id,
+                                                    @RequestBody @Valid AnalysisInsertDTO analysisInsertDTO) throws Exception {
+        childService.registerNewAnalysis(id, analysisInsertDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 }

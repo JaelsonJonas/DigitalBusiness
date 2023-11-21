@@ -2,16 +2,17 @@ package br.com.iriscareapi.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-@ControllerAdvice
-@ResponseStatus
-public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+@RestControllerAdvice
+public class RestExceptionHandler {
 
     private String exceptionClassName;
 
@@ -59,4 +60,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
     }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<List<ErrorMessage>> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+        List<ErrorMessage> errors = new ArrayList<>();
+        e.getFieldErrors().forEach(v -> errors.add(new ErrorMessage(v.getField(), v.getDefaultMessage())));
+        return ResponseEntity.badRequest().body(errors);
+    }
+
 }
