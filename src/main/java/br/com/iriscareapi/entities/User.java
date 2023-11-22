@@ -34,7 +34,7 @@ public class User {
     @Column(name = "user_name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "user_cpf", nullable = false, length = 14)
+    @Column(name = "user_cpf", length = 14)
     @CPF
     private String cpf;
 
@@ -46,7 +46,7 @@ public class User {
     @Email
     private String email;
 
-    @Column(name = "user_password", nullable = false, length = 100)
+    @Column(name = "user_password", length = 100)
     private String password;
 
     private Boolean active;
