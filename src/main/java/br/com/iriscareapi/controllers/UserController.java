@@ -1,9 +1,16 @@
 package br.com.iriscareapi.controllers;
 
 import br.com.iriscareapi.dto.address.AddressUpdateDTO;
-import br.com.iriscareapi.dto.child.*;
+import br.com.iriscareapi.dto.auth.AuthResponse;
+import br.com.iriscareapi.dto.auth.LoginRequest;
+import br.com.iriscareapi.dto.child.ChildFindDTO;
+import br.com.iriscareapi.dto.child.ChildInsertDTO;
+import br.com.iriscareapi.dto.child.ChildUpdateDTO;
 import br.com.iriscareapi.dto.phone.PhoneUpdateDTO;
-import br.com.iriscareapi.dto.user.*;
+import br.com.iriscareapi.dto.user.UserFindDTO;
+import br.com.iriscareapi.dto.user.UserInsertDTO;
+import br.com.iriscareapi.dto.user.UserUpdateDTO;
+import br.com.iriscareapi.entities.User;
 import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.services.UserService;
 import jakarta.validation.Valid;
@@ -11,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -20,6 +29,29 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+
+        AuthResponse authResponse = userService.authenticateUser(loginRequest);
+
+        return ResponseEntity.ok(authResponse);
+
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<Void> registerUser(@Valid @RequestBody UserInsertDTO userInsertDTO) throws Exception {
+
+        User user = userService.registerUser(userInsertDTO);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentContextPath().path("/user/me")
+                .buildAndExpand(user.getId()).toUri();
+
+
+        return ResponseEntity.created(location).build();
+    }
+
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserFindDTO> findUserById(@PathVariable Long id) throws ObjectNotFoundException {
@@ -40,7 +72,7 @@ public class UserController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deactivateUser(@PathVariable Long id) throws Exception {
-       userService.changeUserActive(id);
+        userService.changeUserActive(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -94,7 +126,7 @@ public class UserController {
 
     @PutMapping(value = "/{id}/address")
     public ResponseEntity<Void> updateAddress(@PathVariable Long id,
-                                            @RequestBody @Valid AddressUpdateDTO addressUpdateDTO) throws Exception {
+                                              @RequestBody @Valid AddressUpdateDTO addressUpdateDTO) throws Exception {
         userService.updateAddress(id, addressUpdateDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

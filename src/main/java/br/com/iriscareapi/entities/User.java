@@ -6,11 +6,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -59,6 +61,14 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private List<Child> children;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider;
+
+    private String imageUrl;
+
+    private String providerId;
+
     public void addChild(Child child) {
         this.children.add(child);
     }
@@ -71,5 +81,6 @@ public class User {
         this.password = userInsertDTO.getPassword();
         this.active = true;
     }
+
 
 }

@@ -5,10 +5,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM User u " +
             "JOIN u.children c WHERE u.id = :userId AND c.id = :childId")
     boolean checkIfUserHasChildWithGivenId(@Param("userId") Long userId, @Param("childId") Long childId);
 
+    Optional<User> findByEmail(String email);
+
+    Boolean existsByEmail(String email);
 }
