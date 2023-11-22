@@ -1,6 +1,7 @@
 package br.com.iriscareapi.controllers;
 
 import br.com.iriscareapi.dto.image.ImageDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
@@ -24,6 +25,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/image")
+@SecurityRequirement(name = "bearer-key")
 public class ImageController {
 
     @Value("${image.upload.directory}")
@@ -81,5 +83,4 @@ public class ImageController {
             return ResponseEntity.notFound().build();
         }
     }
-
 }

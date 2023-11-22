@@ -60,12 +60,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.FOUND).body(new UserFindDTO(userService.findById(id)));
     }
 
-    @PostMapping
-    public ResponseEntity<Void> registerNewUser(@RequestBody @Valid UserInsertDTO userInsertDTO) throws Exception {
-        userService.registerUser(userInsertDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
     @PutMapping(value = "/{id}")
     @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<Void> updateUser(@PathVariable Long id, @RequestBody @Valid UserUpdateDTO updateDTO) throws Exception {
