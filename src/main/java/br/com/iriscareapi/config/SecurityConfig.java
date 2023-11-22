@@ -92,6 +92,9 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(auth -> auth.requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/oauth2/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/swagger-ui.html")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll().anyRequest().authenticated());
 
         http.headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
