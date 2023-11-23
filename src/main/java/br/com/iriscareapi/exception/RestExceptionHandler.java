@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -78,6 +79,12 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(OAuth2AuthenticationProcessingException.class)
     public ResponseEntity<ErrorMessage> OAuth2AuthenticationProcessingHandler(OAuth2AuthenticationProcessingException e) {
+
+        log.error(e.getMessage());
+        return ResponseEntity.badRequest().body(new ErrorMessage("error", e.getMessage()));
+    }
+    @ExceptionHandler(ConnectException.class)
+    public ResponseEntity<ErrorMessage> ConnectHandler(ConnectException e) {
 
         log.error(e.getMessage());
         return ResponseEntity.badRequest().body(new ErrorMessage("error", e.getMessage()));
