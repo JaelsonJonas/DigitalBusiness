@@ -15,17 +15,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tb_ic_address")
+@SequenceGenerator(sequenceName = "seq_address", allocationSize = 1, name = "address")
 public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address")
     private Long id;
 
     @Column(length = 15, nullable = false)
     @JsonFormat(pattern = "#####-###")
     private String zipCode;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "house_number")
     private String number;
 
     @Column(length = 50, nullable = false)

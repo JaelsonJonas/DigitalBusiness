@@ -26,6 +26,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,12 +60,13 @@ public class UserService {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password())
         );
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = tokenProvider.createToken(authentication);
 
-        return new AuthResponse(token);
+        Long id = tokenProvider.getUserIdFromToken(token);
+
+        return new AuthResponse(token, id);
     }
 
 
@@ -85,6 +87,7 @@ public class UserService {
         saveUser(user);
 
         address.setUser(user);
+
         addressService.saveAddress(address);
 
         phone.setUser(user);

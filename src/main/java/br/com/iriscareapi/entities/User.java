@@ -23,7 +23,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "tb_ic_user")
-@SequenceGenerator(name = "user", sequenceName = "SQ_TB_USER", allocationSize = 1)
+@SequenceGenerator(name = "user", sequenceName = "seq_user", allocationSize = 1)
 public class User {
 
     @Id

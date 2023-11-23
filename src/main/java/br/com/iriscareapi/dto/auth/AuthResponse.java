@@ -12,5 +12,6 @@ public class AuthResponse {
 
     private final String tokenType = "Bearer";
     private String accessToken;
+    private Long id;
 
 }

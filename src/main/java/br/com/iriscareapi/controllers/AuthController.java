@@ -16,6 +16,7 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
+
     @GetMapping("/user/me")
     @PreAuthorize("hasRole('USER')")
     public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
