@@ -26,7 +26,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,7 +43,6 @@ public class UserService {
     @Autowired
     private PhoneService phoneService;
 
-
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -56,6 +54,9 @@ public class UserService {
 
 
     public AuthResponse authenticateUser(LoginRequest loginRequest) {
+
+        if (!userRepository.existsByEmail(loginRequest.email()))
+            throw new BadRequestException("Login not found");
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password())

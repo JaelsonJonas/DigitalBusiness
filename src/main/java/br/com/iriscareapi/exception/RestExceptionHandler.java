@@ -83,8 +83,16 @@ public class RestExceptionHandler {
         log.error(e.getMessage());
         return ResponseEntity.badRequest().body(new ErrorMessage("error", e.getMessage()));
     }
+
     @ExceptionHandler(ConnectException.class)
     public ResponseEntity<ErrorMessage> ConnectHandler(ConnectException e) {
+
+        log.error(e.getMessage());
+        return ResponseEntity.badRequest().body(new ErrorMessage("error", e.getMessage()));
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorMessage> ConnectHandler(BadRequestException e) {
 
         log.error(e.getMessage());
         return ResponseEntity.badRequest().body(new ErrorMessage("error", e.getMessage()));
