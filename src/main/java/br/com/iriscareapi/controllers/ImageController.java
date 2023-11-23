@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -35,8 +36,7 @@ public class ImageController {
     private Environment environment;
 
     @PostMapping("/upload")
-    public ResponseEntity<ImageDTO> uploadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request)
-            throws IOException {
+    public ResponseEntity<ImageDTO> uploadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
 
         File uploadDir = new File(imageUploadDirectory);
         if (!uploadDir.exists()) {
@@ -44,21 +44,16 @@ public class ImageController {
         }
 
         if ((file.getSize() / (1024 * 1024)) > 1) {
-            throw new FileSizeLimitExceededException("Arquivo com o limite maior que o permitido",
-                    file.getSize() / (1024 * 1024),
-                    1);
+            throw new FileSizeLimitExceededException("Arquivo com o limite maior que o permitido", file.getSize() / (1024 * 1024), 1);
         }
 
-        String imageName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        String imageName = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
         // Salve a imagem no diretório de upload.
         Path imagePath = Path.of(imageUploadDirectory, imageName);
         Files.copy(file.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
 
-        String host = ServletUriComponentsBuilder.fromRequestUri(request)
-                .replacePath(null)
-                .build()
-                .toUriString();
+        String host = ServletUriComponentsBuilder.fromRequestUri(request).replacePath(null).build().toUriString();
 
         // Construa a URL completa para a imagem.
         String imageUrl = host + "/api/image/" + imageName;
@@ -70,7 +65,7 @@ public class ImageController {
     public ResponseEntity<byte[]> getImage(@PathVariable String imageName) throws IOException {
 
         String imageUploadDirectory = environment.getProperty("image.upload.directory");
-        Path imagePath = Path.of(imageUploadDirectory, imageName);
+        Path imagePath = Path.of(Objects.requireNonNull(imageUploadDirectory), imageName);
 
         if (Files.exists(imagePath)) {
             byte[] imageBytes = Files.readAllBytes(imagePath);

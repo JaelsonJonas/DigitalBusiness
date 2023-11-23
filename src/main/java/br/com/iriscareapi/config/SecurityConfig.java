@@ -1,7 +1,6 @@
 package br.com.iriscareapi.config;
 
 
-import br.com.iriscareapi.security.CustomUserDetailsService;
 import br.com.iriscareapi.security.RestAuthenticationEntryPoint;
 import br.com.iriscareapi.security.TokenAuthenticationFilter;
 import br.com.iriscareapi.security.oauth2.CustomOAuth2UserService;
@@ -14,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -33,15 +31,8 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-        securedEnabled = true,
-        jsr250Enabled = true,
-        prePostEnabled = true
-)
-public class SecurityConfig {
 
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+public class SecurityConfig {
 
     @Autowired
     private CustomOAuth2UserService customOAuth2UserService;
@@ -68,7 +59,6 @@ public class SecurityConfig {
         return new TokenAuthenticationFilter();
     }
 
-
     @Bean
     public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
         return new HttpCookieOAuth2AuthorizationRequestRepository();
@@ -78,7 +68,6 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
