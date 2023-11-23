@@ -18,10 +18,11 @@ import java.util.Objects;
 @Builder
 @Data
 @Table(name = "tb_ic_exam")
+@SequenceGenerator(sequenceName = "seq_exam", allocationSize = 1, name = "exam")
 public class Exam {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "exam")
     private Long id;
 
     @Column(name = "exam_name", nullable = false, length = 40)

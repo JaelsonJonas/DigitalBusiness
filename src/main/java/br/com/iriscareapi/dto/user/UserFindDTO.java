@@ -44,7 +44,7 @@ public class UserFindDTO {
         this.phone = new PhoneDTO(user.getPhone());
         this.address = new AddressDTO(user.getAddress());
         this.children = user.getChildren()
-                        .stream().map(ChildFindDTO::new).collect(Collectors.toList());
+                        .stream().map(ChildFindDTO::new).toList();
     }
 
 }

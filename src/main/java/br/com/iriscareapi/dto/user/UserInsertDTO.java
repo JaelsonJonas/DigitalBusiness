@@ -2,6 +2,7 @@ package br.com.iriscareapi.dto.user;
 
 import br.com.iriscareapi.dto.address.AddressDTO;
 import br.com.iriscareapi.dto.phone.PhoneDTO;
+import br.com.iriscareapi.entities.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -42,5 +43,6 @@ public class UserInsertDTO {
 
     @NotNull
     private PhoneDTO phone;
+
 
 }

@@ -1,25 +1,32 @@
 package br.com.iriscareapi.services;
 
 import br.com.iriscareapi.dto.address.AddressUpdateDTO;
+import br.com.iriscareapi.dto.auth.AuthResponse;
+import br.com.iriscareapi.dto.auth.LoginRequest;
 import br.com.iriscareapi.dto.child.ChildFindDTO;
 import br.com.iriscareapi.dto.child.ChildInsertDTO;
 import br.com.iriscareapi.dto.child.ChildUpdateDTO;
 import br.com.iriscareapi.dto.phone.PhoneUpdateDTO;
 import br.com.iriscareapi.dto.user.UserInsertDTO;
 import br.com.iriscareapi.dto.user.UserUpdateDTO;
-import br.com.iriscareapi.entities.Address;
-import br.com.iriscareapi.entities.Child;
-import br.com.iriscareapi.entities.Phone;
-import br.com.iriscareapi.entities.User;
+import br.com.iriscareapi.entities.*;
+import br.com.iriscareapi.exception.BadRequestException;
 import br.com.iriscareapi.exception.EntityRegisterException;
 import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.repositories.UserRepository;
+import br.com.iriscareapi.security.TokenProvider;
 import br.com.iriscareapi.utils.DataUtils;
 import br.com.iriscareapi.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,27 +44,69 @@ public class UserService {
     @Autowired
     private PhoneService phoneService;
 
-    public User findById(Long id) throws ObjectNotFoundException {
-        return userRepository
-                .findById(id).orElseThrow(() -> new ObjectNotFoundException("User with id " + id + " not found."));
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private TokenProvider tokenProvider;
+
+
+    public AuthResponse authenticateUser(LoginRequest loginRequest) {
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password())
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String token = tokenProvider.createToken(authentication);
+
+        Long id = tokenProvider.getUserIdFromToken(token);
+
+        return new AuthResponse(token, id);
     }
 
-    public void registerUser(UserInsertDTO userInsertDTO) throws Exception {
+
+    public User registerUser(UserInsertDTO userInsertDTO) throws Exception {
+
+        if (userRepository.existsByEmail(userInsertDTO.getEmail())) {
+            throw new BadRequestException("Email address already in use.");
+        }
+
         User user = new User(userInsertDTO);
         Address address = new Address(userInsertDTO.getAddress());
         Phone phone = new Phone(userInsertDTO.getPhone());
 
+        user.setProvider(AuthProvider.LOCAL);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         saveUser(user);
 
         address.setUser(user);
+
         addressService.saveAddress(address);
 
         phone.setUser(user);
+
         phoneService.savePhone(phone);
 
         user.setAddress(address);
+
         user.setPhone(phone);
+
         saveUser(user);
+
+        return user;
+    }
+
+
+    public User findById(Long id) throws ObjectNotFoundException {
+        return userRepository
+                .findById(id).orElseThrow(() -> new ObjectNotFoundException("User with id " + id + " not found."));
     }
 
     public void updateUser(UserUpdateDTO userUpdateDTO, Long id) throws Exception {
@@ -111,7 +160,7 @@ public class UserService {
 
     public List<ChildFindDTO> findAllChildrenByUserId(Long userId) throws ObjectNotFoundException {
         return childService.findAllByUserId(userId).stream()
-                            .map(ChildFindDTO::new).collect(Collectors.toList());
+                .map(ChildFindDTO::new).collect(Collectors.toList());
     }
 
     public List<ChildFindDTO> findAllActiveChildrenByUserId(Long userId) throws ObjectNotFoundException {
@@ -135,7 +184,7 @@ public class UserService {
     }
 
     public void changeAllChildActive(Long userId, List<Long> childrenId) throws ObjectNotFoundException {
-        for(Long id : childrenId) {
+        for (Long id : childrenId) {
             if (userRepository.checkIfUserHasChildWithGivenId(userId, id))
                 childService.changeChildActive(id);
         }
