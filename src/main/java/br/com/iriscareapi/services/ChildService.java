@@ -101,8 +101,9 @@ public class ChildService {
     }
 
     public List<Long> findChildIdsByUserId(Long id) throws ObjectNotFoundException {
-        userHasAnyChild(id);
-        return childRepository.findChildIdsByUserId(id);
+        if(childRepository.existsChildByUserId(id))
+            return childRepository.findChildIdsByUserId(id);
+        return null; //TODO
     }
 
     public boolean childHasExamWithGivenId(Long childId, Long examId) throws ObjectNotFoundException {

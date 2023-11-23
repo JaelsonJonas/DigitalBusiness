@@ -127,7 +127,11 @@ public class UserService {
     public void changeUserActive(Long id) throws ObjectNotFoundException {
         var user = findById(id);
         user.setActive(!user.getActive());
-        changeAllChildActive(id, childService.findChildIdsByUserId(id));
+        saveUser(user);
+
+        var listChildId = childService.findChildIdsByUserId(id);
+        if(!listChildId.isEmpty())
+            changeAllChildActive(id, listChildId);
     }
 
     public void dataUpdate(User userToAtt, UserUpdateDTO userUpdateDTO) throws Exception {

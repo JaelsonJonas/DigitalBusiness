@@ -57,7 +57,7 @@ public class UserController {
     @GetMapping(value = "/{id}")
     @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<UserFindDTO> findUserById(@PathVariable Long id) throws ObjectNotFoundException {
-        return ResponseEntity.status(HttpStatus.FOUND).body(new UserFindDTO(userService.findById(id)));
+        return ResponseEntity.status(HttpStatus.OK).body(new UserFindDTO(userService.findById(id)));
     }
 
     @PutMapping(value = "/{id}")
@@ -116,7 +116,7 @@ public class UserController {
 
     @PutMapping(value = "/{id}/children/{childId}/active")
     @SecurityRequirement(name = "bearer-key")
-    public ResponseEntity<Void> updateChild(@PathVariable Long id,
+    public ResponseEntity<Void> updateChildActive(@PathVariable Long id,
                                             @PathVariable Long childId) throws ObjectNotFoundException {
         userService.changeChildActive(id, childId);
         return ResponseEntity.status(HttpStatus.OK).build();
