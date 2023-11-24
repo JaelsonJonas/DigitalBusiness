@@ -4,11 +4,11 @@
 #    url: jdbc:h2:mem:testdb
 
 # OracleDB connection config
-spring:
-  datasource:
-    url: jdbc:oracle:thin:@//oracle.fiap.com.br:1521/ORCL
-    username: rm93915
-    password: 060696
+#spring:
+  #datasource:
+    #url: jdbc:oracle:thin:@//oracle.fiap.com.br:1521/ORCL
+    #username: rm93915
+    #password: 060696
   jpa:
     show-sql: true
     properties:

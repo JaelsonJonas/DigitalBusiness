@@ -129,9 +129,8 @@ public class UserService {
         user.setActive(!user.getActive());
         saveUser(user);
 
-        var listChildId = childService.findChildIdsByUserId(id);
-        if(!listChildId.isEmpty())
-            changeAllChildActive(id, listChildId);
+        if(childService.findChildIdsByUserId(id) != null && childService.findChildIdsByUserId(id).isEmpty())
+            changeAllChildActive(id, childService.findChildIdsByUserId(id));
     }
 
     public void dataUpdate(User userToAtt, UserUpdateDTO userUpdateDTO) throws Exception {
