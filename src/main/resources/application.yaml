@@ -21,8 +21,8 @@ security:
     client:
       registration:
         google:
-          clientId: ${GOOGLE_CLIENT_ID}
-          clientSecret: ${GOOGLE_CLIENT_SECRET}
+          clientId: 171995458014-i1g4bsllj4vkmb1j8jo3mnr7nn6cuf04.apps.googleusercontent.com
+          clientSecret: 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
 
 app:
   auth:
