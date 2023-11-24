@@ -14,6 +14,8 @@ import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.repositories.ChildRepository;
 import br.com.iriscareapi.utils.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -82,8 +84,8 @@ public class ChildService {
         return null;
     }
 
-    public List<ExamFindDTO> findAllExamsByChildId(Long childId) throws ObjectNotFoundException {
-        return examService.findAllByChildId(childId);
+    public Page<ExamFindDTO> findAllExamsByChildId(Long childId, Pageable pageable) throws ObjectNotFoundException {
+        return examService.findAllByChildId(childId, pageable);
     }
 
     public void registerNewExam(Long childId, ExamInsertDTO examInsertDTO) throws Exception {
@@ -120,8 +122,8 @@ public class ChildService {
         return null;
     }
 
-    public List<AnalysisFindDTO> finAllAnalysesByChildId(Long id) throws ObjectNotFoundException {
-        return analysisService.findAllByChildId(id);
+    public Page<AnalysisFindDTO> finAllAnalysesByChildId(Long id, Pageable pageable) throws ObjectNotFoundException {
+        return analysisService.findAllByChildId(id, pageable);
     }
 
     public void registerNewAnalysis(Long id, AnalysisInsertDTO analysisInsertDTO) throws ObjectNotFoundException {

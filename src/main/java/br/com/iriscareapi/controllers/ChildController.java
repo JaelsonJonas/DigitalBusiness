@@ -6,7 +6,11 @@ import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.services.ChildService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +31,11 @@ public class ChildController {
     }
 
     @GetMapping(value = "/{id}/exam")
-    public ResponseEntity<List<ExamFindDTO>> findAllExamByChildId(@PathVariable Long id) throws ObjectNotFoundException {
-        return ResponseEntity.status(HttpStatus.FOUND).body(childService.findAllExamsByChildId(id));
+    public ResponseEntity<Page<ExamFindDTO>> findAllExamByChildId(@PathVariable Long id,
+                                                                  @ParameterObject
+                                                                  @PageableDefault(size = 2)
+                                                                  Pageable pageable) throws ObjectNotFoundException {
+        return ResponseEntity.status(HttpStatus.FOUND).body(childService.findAllExamsByChildId(id, pageable));
     }
 
     @PostMapping(value = "/{id}/exam")
@@ -52,8 +59,11 @@ public class ChildController {
     }
 
     @GetMapping(value = "/{id}/analysis")
-    public ResponseEntity<List<AnalysisFindDTO>> finAllAnalysesByChildId(@PathVariable Long id) throws ObjectNotFoundException {
-        return ResponseEntity.status(HttpStatus.FOUND).body(childService.finAllAnalysesByChildId(id));
+    public ResponseEntity<Page<AnalysisFindDTO>> finAllAnalysesByChildId(@PathVariable Long id,
+                                                                        @ParameterObject
+                                                                        @PageableDefault(size = 2)
+                                                                        Pageable pageable) throws ObjectNotFoundException {
+        return ResponseEntity.status(HttpStatus.FOUND).body(childService.finAllAnalysesByChildId(id, pageable));
     }
 
     @PostMapping("/{id}/analysis")
