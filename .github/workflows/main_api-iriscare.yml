@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'api-iriscare'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4EFAD3CC47CD4AA49F16EFC5DEF57F5D }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_39319DABD537468AA6056FB484F840E7 }}
           package: '*.jar'
