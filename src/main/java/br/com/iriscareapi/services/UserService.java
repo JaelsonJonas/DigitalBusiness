@@ -106,6 +106,7 @@ public class UserService {
 
     public void updateUser(UserUpdateDTO userUpdateDTO, Long id) throws Exception {
         User user = findById(id);
+        userUpdateDTO.setPassword(passwordEncoder.encode(userUpdateDTO.getPassword()));
         DataUtils.dataUpdate(user, userUpdateDTO);
         saveUser(user);
     }

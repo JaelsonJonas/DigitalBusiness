@@ -117,7 +117,7 @@ public class UserController {
     @PutMapping(value = "/{id}/children/{childId}/active")
     @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<Void> updateChildActive(@PathVariable Long id,
-                                            @PathVariable Long childId) throws ObjectNotFoundException {
+                                                  @PathVariable Long childId) throws ObjectNotFoundException {
         userService.changeChildActive(id, childId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

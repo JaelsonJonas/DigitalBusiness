@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.net.ConnectException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -38,7 +39,7 @@ public class RestExceptionHandler {
     @ExceptionHandler(EntityRegisterException.class)
     public ResponseEntity<ErrorMessage> entityRegisterException(EntityRegisterException exception) {
 
-        exceptionClassName = ObjectNotFoundException.class.getName();
+        exceptionClassName = EntityRegisterException.class.getName();
         String exMsg = exception.getMessage();
 
         if (Objects.isNull(exMsg)) exMsg = "Can't find in data bank";
@@ -54,7 +55,7 @@ public class RestExceptionHandler {
     @ExceptionHandler(DataUtilsException.class)
     public ResponseEntity<ErrorMessage> dataUtilsException(DataUtilsException exception) {
 
-        exceptionClassName = ObjectNotFoundException.class.getName();
+        exceptionClassName = DataUtilsException.class.getName();
         String exMsg = exception.getMessage();
 
         if (Objects.isNull(exMsg)) exMsg = "Error trying to execute DataUtils method";
@@ -78,24 +79,32 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(OAuth2AuthenticationProcessingException.class)
-    public ResponseEntity<ErrorMessage> OAuth2AuthenticationProcessingHandler(OAuth2AuthenticationProcessingException e) {
+    public ResponseEntity<ErrorMessage> oAuth2AuthenticationProcessingHandler(OAuth2AuthenticationProcessingException e) {
 
         log.error(e.getMessage());
         return ResponseEntity.badRequest().body(new ErrorMessage("error", e.getMessage()));
     }
 
     @ExceptionHandler(ConnectException.class)
-    public ResponseEntity<ErrorMessage> ConnectHandler(ConnectException e) {
+    public ResponseEntity<ErrorMessage> connectHandler(ConnectException e) {
 
         log.error(e.getMessage());
         return ResponseEntity.badRequest().body(new ErrorMessage("error", e.getMessage()));
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ErrorMessage> ConnectHandler(BadRequestException e) {
+    public ResponseEntity<ErrorMessage> connectHandler(BadRequestException e) {
 
         log.error(e.getMessage());
         return ResponseEntity.badRequest().body(new ErrorMessage("error", e.getMessage()));
     }
+    @ExceptionHandler(DateTimeParseException.class)
+    public ResponseEntity<ErrorMessage> dateTimeParseHandler(DateTimeParseException e) {
+
+        log.error(e.getMessage());
+        return ResponseEntity.badRequest().body(new ErrorMessage("error", e.getMessage()));
+    }
+
+
 
 }
