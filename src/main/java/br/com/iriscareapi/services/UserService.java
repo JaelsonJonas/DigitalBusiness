@@ -17,6 +17,7 @@ import br.com.iriscareapi.repositories.UserRepository;
 import br.com.iriscareapi.security.TokenProvider;
 import br.com.iriscareapi.utils.DataUtils;
 import br.com.iriscareapi.utils.DateUtils;
+import br.com.iriscareapi.validation.LoginValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,31 +33,25 @@ import java.util.stream.Collectors;
 public class UserService {
 
     @Autowired
+    List<LoginValidation> validations;
+    @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private ChildService childService;
-
     @Autowired
     private AddressService addressService;
-
     @Autowired
     private PhoneService phoneService;
-
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
     private TokenProvider tokenProvider;
 
-
     public AuthResponse authenticateUser(LoginRequest loginRequest) {
 
-        if (!userRepository.existsByEmail(loginRequest.email()))
-            throw new BadRequestException("Login not found");
+        validations.forEach(v -> v.validate(loginRequest));
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password())
@@ -69,7 +64,6 @@ public class UserService {
 
         return new AuthResponse(token, id);
     }
-
 
     public User registerUser(UserInsertDTO userInsertDTO) throws Exception {
 
@@ -129,7 +123,7 @@ public class UserService {
         user.setActive(!user.getActive());
         saveUser(user);
 
-        if(childService.findChildIdsByUserId(id) != null && childService.findChildIdsByUserId(id).isEmpty())
+        if (childService.findChildIdsByUserId(id) != null && childService.findChildIdsByUserId(id).isEmpty())
             changeAllChildActive(id, childService.findChildIdsByUserId(id));
     }
 
