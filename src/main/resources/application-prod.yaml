@@ -4,12 +4,7 @@ spring:
     url: jdbc:postgresql://iriscaredb.postgres.database.azure.com:5432/iriscaredb
     username: iriscare
     password: tKJxbF2w71@
-    hikari:
-      maximum-pool-size: 10
-      idle-timeout: 30000
-      pool-name: MyHikariCP
   jpa:
-#    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     properties:
       hibernate:
