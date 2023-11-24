@@ -1,6 +1,7 @@
 package br.com.iriscareapi.security;
 
 import br.com.iriscareapi.config.AppProperties;
+import br.com.iriscareapi.exception.BadRequestException;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -46,7 +47,6 @@ public class TokenProvider {
 
         return Long.parseLong(claims.getSubject());
     }
-
 
     public boolean validateToken(String authToken) {
         try {
