@@ -1,37 +1,22 @@
 #H2 connection config
-#spring:
-#  datasource:
-#    url: jdbc:h2:mem:testdb
-
-# OracleDB connection config
-#spring:
-  #datasource:
-    #url: jdbc:oracle:thin:@//oracle.fiap.com.br:1521/ORCL
-    #username: rm93915
-    #password: 060696
-  jpa:
-    show-sql: true
-    properties:
-      hibernate.format_sql: true
-    hibernate:
-      ddl-auto: update
-
-
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
 server:
   error:
     include-stacktrace: never
-
+  profile:
+    active:${ACTIVE_PROFILE:local}
 #Folder images directory
 image:
   upload:
     directory: ${user.dir}/images
 
-#imageSize
+  #imageSize
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-
 
 # Oauth2 Google Provider
 security:
@@ -53,5 +38,3 @@ app:
       - http://localhost:3000/oauth2/redirect
       - http://192.168.0.26:8081/oauth2/redirect
       - myiosapp://oauth2/redirect
-
-
