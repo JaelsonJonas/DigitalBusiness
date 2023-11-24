@@ -6,6 +6,8 @@ import br.com.iriscareapi.exception.EntityRegisterException;
 import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.repositories.AnalysisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +24,9 @@ public class AnalysisService {
                 orElseThrow(() -> new ObjectNotFoundException("Analysis with id " + id + " not found"));
     }
 
-    public List<AnalysisFindDTO> findAllByChildId(Long id) throws ObjectNotFoundException {
+    public Page<AnalysisFindDTO> findAllByChildId(Long id, Pageable pageable) throws ObjectNotFoundException {
         childHasAnyAnalysis(id);
-        return analysisRepository.findAllByChildId(id).stream().map(AnalysisFindDTO::new).collect(Collectors.toList());
+        return analysisRepository.findAllByChildId(id, pageable).map(AnalysisFindDTO::new);
     }
 
     public void saveAnalysis(Analysis analysis) {

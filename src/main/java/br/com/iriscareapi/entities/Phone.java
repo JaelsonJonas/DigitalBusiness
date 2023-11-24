@@ -15,10 +15,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "tb_ic_phone")
+@SequenceGenerator(sequenceName = "seq_phone", allocationSize = 1, name = "phone")
 public class Phone {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "phone")
     private Long id;
 
     @Column(name = "phone_ddd", nullable = false, length = 3)

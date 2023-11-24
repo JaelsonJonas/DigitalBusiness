@@ -14,23 +14,34 @@ import org.hibernate.validator.constraints.Length;
 @Data
 public class AddressDTO {
 
-    @Length(max = 9) @NotNull @NotBlank
+    @Length(max = 9)
+    @NotNull
+    @NotBlank
     @JsonFormat(pattern = "nnnnn-nnn")
     private String zipCode;
 
-    @NotNull @NotBlank
+    @NotNull
+    @NotBlank
     private String number;
 
-    @Length(max = 50) @NotNull @NotBlank
+    @Length(max = 50)
+    @NotNull
+    @NotBlank
     private String street;
 
-    @Length(max = 50) @NotNull @NotBlank
+    @Length(max = 50)
+    @NotNull
+    @NotBlank
     private String neighborhood;
 
-    @Length(max = 50) @NotNull @NotBlank
+    @Length(max = 50)
+    @NotNull
+    @NotBlank
     private String city;
 
-    @Length(max = 50) @NotNull @NotBlank
+    @Length(max = 50)
+    @NotNull
+    @NotBlank
     private String state;
 
     public AddressDTO(Address address) {
@@ -41,5 +52,6 @@ public class AddressDTO {
         this.city = address.getCity();
         this.state = address.getState();
     }
+
 
 }

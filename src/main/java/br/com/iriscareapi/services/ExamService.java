@@ -8,6 +8,8 @@ import br.com.iriscareapi.exception.ObjectNotFoundException;
 import br.com.iriscareapi.repositories.ExamRepository;
 import br.com.iriscareapi.utils.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,9 +26,9 @@ public class ExamService {
                                 .orElseThrow(() -> new ObjectNotFoundException("Exam with id " + id + " not found"));
     }
 
-    public List<ExamFindDTO> findAllByChildId(Long childId) throws ObjectNotFoundException {
+    public Page<ExamFindDTO> findAllByChildId(Long childId, Pageable pageable) throws ObjectNotFoundException {
         childHasAnyExam(childId);
-        return examRepository.findAllByChildId(childId).stream().map(ExamFindDTO::new).collect(Collectors.toList());
+        return examRepository.findAllByChildId(childId, pageable).map(ExamFindDTO::new);
     }
 
     public void childHasAnyExam(Long id) throws ObjectNotFoundException {

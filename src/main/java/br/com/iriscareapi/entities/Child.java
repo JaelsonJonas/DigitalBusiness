@@ -20,7 +20,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "tb_ic_child")
-@SequenceGenerator(name = "child", sequenceName = "SQ_TB_CHILD", allocationSize = 1)
+@SequenceGenerator(name = "child", sequenceName = "seq_child", allocationSize = 1)
 public class Child {
 
     @Id
@@ -40,6 +40,7 @@ public class Child {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthday;
 
+    @Column(name = "is_active")
     private Boolean active;
 
     @ManyToOne(fetch = FetchType.EAGER)

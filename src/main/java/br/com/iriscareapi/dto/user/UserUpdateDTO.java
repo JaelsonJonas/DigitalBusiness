@@ -27,5 +27,4 @@ public class UserUpdateDTO {
 
     @Length(max = 100)
     private String password;
-
 }
