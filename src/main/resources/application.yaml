@@ -5,6 +5,7 @@ spring:
     url: jdbc:postgresql://iriscaredb.postgres.database.azure.com:5432/iriscaredb
     username: iriscare
     password: tKJxbF2w71@
+    connectionTimeout: 60000
 
 
 server:
