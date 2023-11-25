@@ -1,12 +1,12 @@
 # PostgreSQL connection config
-spring:
-  datasource:
-    url: jdbc:postgresql://iriscaredb.postgres.database.azure.com:5432/iriscaredb
-    username: iriscare
-    password: tKJxbF2w71@
-  jpa:
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        ddl-auto: update
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://iriscaredb.postgres.database.azure.com:5432/iriscaredb
+#    username: iriscare
+#    password: tKJxbF2w71@
+#  jpa:
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        ddl-auto: update
