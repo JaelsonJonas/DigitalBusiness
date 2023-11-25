@@ -1,5 +1,5 @@
 # IrisCare API
-O WePlant é um aplicativo voltado para auxiliar moradores de comunidades na prática da agricultura vertical. A agricultura vertical é uma técnica que permite o cultivo de plantas em espaços reduzidos, aproveitando a verticalidade dos ambientes urbanos. O objetivo do WePlant é fornecer suporte e orientação aos agricultores urbanos, ajudando-os a otimizar o uso de recursos, gerenciar suas plantações e maximizar a produção de alimentos.
+O Iriscare é um aplicativo voltado para auxiliar pais e crianças com o diagnostico de retinoblastoma, um tipo de câncer ocular presente em crianças de 0 a 5 anos. O retinoblastoma é um tipo raro de câncer ocular. Segundo o Ministério da Saúde, é o tumor ocular mais comum em crianças, representando cerca de 3% dos cânceres infantis, chegando a uma média de 400 casos por ano. O objetivo do projeto é que por meio de inteligência artificial e monitoramento constânte os pais possam monitorar possíveis suspeitas do câncer e fornecer aos especialistas informações mais concretas para a consumação do diagnóstico e do tratamento.
 
 <br/>
 
