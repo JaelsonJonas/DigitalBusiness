@@ -3,10 +3,6 @@ O Iriscare é um aplicativo voltado para auxiliar pais e crianças com o diagnos
 
 <br/>
 
-# <span style="color: #63C71F;">Pitch</span>
-
-[Assista ao video Pitch](https://youtu.be/0_QOPCaIbMc)
-
 # <span style="color: #63C71F;">Demonstração do Backend</span>
 
 [Assista ao video do back-end integrado rodando](https://www.youtube.com/watch?v=T-gVGc_Rwao)
