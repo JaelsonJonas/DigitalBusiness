@@ -1,61 +1,162 @@
 # IrisCare API
-Olá! Este projeto tem como objetivo trazer uma API que gerencia os dados de um aplicativo que tem como o objetivo análises para diagnóstico de retinoblastoma.
-O projeto foi desenvolvido utilizando JDK 17, Spring Framework, JPA, banco de dados relacional Oracle, Spring Security, OAuth2.
+O WePlant é um aplicativo voltado para auxiliar moradores de comunidades na prática da agricultura vertical. A agricultura vertical é uma técnica que permite o cultivo de plantas em espaços reduzidos, aproveitando a verticalidade dos ambientes urbanos. O objetivo do WePlant é fornecer suporte e orientação aos agricultores urbanos, ajudando-os a otimizar o uso de recursos, gerenciar suas plantações e maximizar a produção de alimentos.
 
-## Estrutura do Projeto
+<br/>
 
-Este projeto foi estruturado realizando a separação em 7 packages , sendo elas:
+# <span style="color: #63C71F;">Pitch</span>
 
-### Controllers
+[Assista ao video Pitch](https://youtu.be/0_QOPCaIbMc)
 
-Esta package tem por objetivo armazenar o controlador das requisições HTTP realizadas pelo usuário. Fazendo uma ligação direta com a camada de serviços, o controlador será responsável também por fornecer respostas ao usuário de acordo com as requisições e as regras de negócio implementadas na camada de serviço.
+# <span style="color: #63C71F;">Demonstração do Backend</span>
 
-### Services
+[Assista ao video do back-end integrado rodando](https://www.youtube.com/watch?v=T-gVGc_Rwao)
 
-Esta package tem por objetivo armazenar a camada de serviço da aplicação. Nesta camada, todas as regras de negócio serão implementadas para que todas as requisições feitas pelo usuário possam ser respondidas de acordo com as regras impostas na ideação do projeto. Nesta camada os dados enviados são validados, tratados e a intermediação entre o controlador e o repositório é feita para que a requisição seja respondida.
 
-### Repositories
+# <span style="color: #63C71F;">Tecnologias Utilizadas</span>
 
-Esta package tem por objetivo armazenar a camada de repositório da aplicação. Esta camada irá implementar uma interface que acessará e manipulará os dados do banco de dados da aplicação. Estando em contato direto com o banco de dados, esta interface
-tornará o acesso mais simples e rápido.
+          
+<div align="center">
+    <img align="center" alt="weplant-java" height="40" width="12%" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original-wordmark.svg" />
+    <img align="center" alt="weplant-illustrator" height="40" width="12%" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original-wordmark.svg" />
+    <img align="center" alt="weplant-html5" height="40" width="12%" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" />
+    <img align="center" alt="weplant-react" height="40" width="12%" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg" />
+    <img align="center" alt="weplant-nodejs" height="40" width="12%" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original-wordmark.svg" />
+    <img align="center" alt="weplant-nodejs" height="40" width="12%" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" />
+    <img align="center" alt="weplant-nodejs" height="40" width="12%" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" />
+          
+          
 
-### Entities
+</div>
 
-Esta package tem por objetivo armazenar a camada de entidades da aplicação. Esta camada será responsável por definir as estruturas de dados da aplicação e do banco de dados, e terá contato direto com a camada de repositório.
+<br/>
 
-### DTO
+<br/>
 
-Esta package tem por objetivo armazenar a camada de Data Transfer Objects da aplicação. A camada de DTO é responsável por definir as estruturas de dados usadas para transferir informações entre as diferentes camadas da aplicação ou entre a aplicação e outros sistemas externos. DTOs são projetados para serem simples e leves, contendo apenas os dados necessários para a transferência de informações. A camada de DTO ajuda a separar a lógica de negócios da lógica de transferência de dados e a melhorar o desempenho e a escalabilidade da aplicação.
+# <span style="color: #63C71F;">Configuração e Execução </span>
 
-### Exceptions
+## Requisitos : 
 
-Esta package tem por objetivo armazenar as classes de implementação das exceções próprias do projeto. Estas exceções contextualizarão os possíveis erros de uma forma melhor e aprimorarão a experiência do usuário.
+- Git
+- JDK 17
+- Node.JS
+- Expo
+- IDE de preferência (Ex: VsCode)
+- Android Studio com emulador de Android
 
-## Utils
+## Passo a passo
 
-Esta camada consiste em uma camada composta por classes que abrigam métodos que podem ser utilizados em diversos campos da aplicação. É uma camada de classes com métodos reutilizáveis e de funções diversas, como conversores e métodos que seriam repetitivos em certas partes do código.
+- [Clone o projeto Java do repositório DigitalBusiness](https://github.com/IrisCareSoluctions/DigitalBusiness)
+- Abra o projeto Java clonado na IDE escolhida e ache a classe "IriscareapiApplication" para inicar a execução do projeto na porta localhost:8080.
+- [Clone o projeto React do repositório DigitalBusiness](https://github.com/IrisCareSoluctions/HybridMobile)
+- Execute o emulador instalado na máquina.
+- Abra o projeto React clonado na IDE escolhida e execute o comando "npm i", logo após, npx expo start. Siga os passos para obter o projeto no emulador.
 
-## Instruções para Execução do Projeto
 
-Para executar a aplicação, pode ser usado o botão de Run de cada IDE. Mas caso seja necessário outro método, deve-se localizar a classe "IriscareapiApplication", seleciona-lá com o botão direito do mouse e selecionar a opção "Run IriscareapiApplication".
+<br/>
 
-## Configuração
+# <span style="color: #63C71F;">Endpoints </span>
 
-Toda configuração de conexão e execução do banco de dados esta disponível no arquivo application.properties localizado na pasta "resources" do projeto. A aplicação será executado na porta "http://localhost:8080" e o acesso as tabelas será feito pelo programa SQL Developer com os dados disponibilizados no application.properties.
+## UserController
 
-### Baixando arquivo .zip
+### Método signup:
+Rota: "localhost:8080/user/signup" <br>
+Descrição: Cadastra um novo usuário com base nos dados fornecidos.
 
-Faça o download do arquivo zip e descompacte na workspace da IDE. Então importe e abra o arquivo descompactado localizado na workspace da IDE.
+```js
+Request Body:
 
-### Clonando via Github
+{
+    "name": "John Doe",
+    "cpf": "752.106.910-20",
+    "birthday": "01/01/1990",
+    "email": "john.doe4@example.com",
+    "password": "securepassword",
+    "address": {
+        "zipCode": "12345-678",
+        "number": "123",
+        "street": "Example Street",
+        "neighborhood": "Sample Neighborhood",
+        "city": "Sample City",
+        "state": "Sample State"
+    },
+    "phone": {
+        "ddd": "123",
+        "number": "987654321"
+    }
+}
 
-Requisitos:
-Git : https://git-scm.com
-Permissão para acesso ao repositório da organização.
-Na pasta onde se deseja salvar o clone do projeto, clique com o botão direito na área da pasta e selecione a opção "Git Bash Here". Quando o terminal for aberto copie, cole e execute o seguinte comando :
 
-git clone [https://github.com/marcosbilobram/high-risk-cpf-api.git](https://github.com/IrisCareSoluctions/DigitalBusiness.git)
+```
 
-# Detalhamento dos endpoints
+### Método login:
+Rota: "localhost:8080/user/login" <br>
+Descrição: Realiza o login do usuário com base nas informações fornecidas.
 
-Para um detalhamento completo dos endpoints feito pelo swagger, após a execução da aplicação, acesse a interface do swagger da aplicação pelo link : http://localhost:8080/swagger-ui/index.html#/.
+``` js
+{
+"email" : "email",
+"password" : "senha"
+}
+```
+
+### Método findById:
+Rota: "localhost:8080/user/{**user_id**}" <br>
+Descrição: Retorna um usuário com o ID especificado.
+
+### Método updateUser:
+Rota: "localhost:8080/users/{**user_id**}" <br>
+Descrição: Atualiza um usuário existente com base nos dados fornecidos.
+
+```js
+Request body
+ Irá variar de acordo com as informações a se atualizar: 
+ 
+ {
+  "name": "Jaelson",
+  "cpf": "43133963813",
+  "birthday": "06/06/1996",
+  "email": "livedojonas@hotmail.com",
+  "password": "1234"
+}
+
+
+```
+
+### Método deactivateUser:
+Rota: "localhost:8080/user/{**user_id**}" <br>
+Descrição: Atualiza o atributo "active" de um usuário para false ou true.
+
+...
+
+Para um detalhamento completo dos endpoints feito pelo swagger, após a execução da aplicação Java, acesse a interface do swagger da aplicação pelo link : http://localhost:8080/swagger-ui/index.html#/.
+
+
+# <span style="color: #63C71F;">Equipe</span>
+
+     A equipe responsável por esse projeto é composta por:
+
+- <span style="color: #63C71F;">RM: 93915 - Jaelson dos Santos </span> 
+- <span style="color: #63C71F;">RM: 94311 - Marcos Bilobram </span> 
+- <span style="color: #63C71F;">RM: 96320 - Nathália Maia </span> 
+- <span style="color: #63C71F;">RM: 94972 - Rafaela da Silva </span>
+- <span style="color: #63C71F;">RM: 93613 - Vinicus de Oliveira </span>
+
+        Cada membro da equipe desempenha um papel fundamental no desenvolvimento e no sucesso do projeto, contribuindo com suas habilidades e conhecimentos na área de tecnologia.
+
+<br/>
+
+# <span style="color: #63C71F;">Pitch</span>
+
+[Assista ao video Pitch](https://youtu.be/0_QOPCaIbMc)
+
+# <span style="color: #63C71F;">Considerações Finais</span>
+
+        O desenvolvimento do Iriscare é um projeto realizado como parte da prova semestral da faculdade FIAP, com o tema "“Inovação e Tecnologia Moldandoo Futuro da Saúde: Prevenção,Automação e Precisão".
+
+        A equipe se empenhou para criar uma solução eficiente e inovadora, que visa promover o combate ao retinoblastoma.
+
+O projeto Iriscare está disponível na íntegra, incluindo todos os códigos-fonte e entregas, na organização do GitHub: 
+https://github.com/IrisCareSoluctions.
+
+<br/>
+
