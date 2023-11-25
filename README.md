@@ -1,7 +1,9 @@
-# IrisCare API
-O Iriscare é um aplicativo voltado para auxiliar pais e crianças com o diagnostico de retinoblastoma, um tipo de câncer ocular presente em crianças de 0 a 5 anos. O retinoblastoma é um tipo raro de câncer ocular. Segundo o Ministério da Saúde, é o tumor ocular mais comum em crianças, representando cerca de 3% dos cânceres infantis, chegando a uma média de 400 casos por ano. O objetivo do projeto é que por meio de inteligência artificial e monitoramento constânte os pais possam monitorar possíveis suspeitas do câncer e fornecer aos especialistas informações mais concretas para a consumação do diagnóstico e do tratamento.
+# IrisCare Soluctions
 
-<br/>
+    O IrisCare é um aplicativo móvel desenvolvido para a prevenção e controle do Retinoblastoma, uma forma de câncer ocular, por meio da análise de imagem, controle periódico e encaminhamento para a Secretaria Municipal e GRAACC.
+
+
+<img align="center" src="https://github.com/IrisCareSoluctions/HybridMobile/blob/main/assets/evidencia4.png" />
 
 # <span style="color: #63C71F;">Demonstração do Backend</span>
 
