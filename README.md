@@ -1,13 +1,57 @@
 # IrisCare Soluctions
 
-    O IrisCare é um aplicativo móvel desenvolvido para a prevenção e controle do Retinoblastoma, uma forma de câncer ocular, por meio da análise de imagem, controle periódico e encaminhamento para a Secretaria Municipal e GRAACC.
+    O IrisCare é um aplicativo móvel desenvolvido para a prevenção e controle do Retinoblastoma, uma forma de câncer ocular, 
+    por meio da análise de imagem, controle periódico e encaminhamento para a Secretaria Municipal e GRAACC.
 
 
 <img align="center" src="https://github.com/IrisCareSoluctions/HybridMobile/blob/main/assets/evidencia4.png" />
 
+----
+# <span style="color: #63C71F;">Pitch</span>
+
+[Assista ao video Pitch](https://youtu.be/0_QOPCaIbMc)
+
+----
+
 # <span style="color: #63C71F;">Demonstração do Backend</span>
 
 [Assista ao video do back-end integrado rodando](https://www.youtube.com/watch?v=T-gVGc_Rwao)
+
+---
+
+# Desenvolvedores:
+
+    -> RM: 93915 -  JAELSON DOS SANTOS
+
+    -> RM: 94311 - MARCOS BILOBRAM
+
+    -> RM: 96320 - NATHÁLIA MAIA
+
+    -> RM: 94972 - RAFAELA DA SILVA
+
+    -> RM: 93613 - VINICIUS DE OLIVEIRA
+
+
+
+<div align="center"> 
+    <a href="https://github.com/JaelsonJonas">
+        <img align="center" height="100" width="100" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/101295166?v=4" />
+    </a>
+    <a href="https://github.com/marcosbilobram">
+        <img align="center" height="100" width="100" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/92834827?v=4" />
+    </a>
+    <a href="https://github.com/natmaia">
+        <img align="center" height="100" width="100" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/105464103?s=96&v=4" />
+    </a>
+    <a href="https://github.com/gsrafaela">
+        <img align="center" height="100" width="100" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/99452621?v=4" />
+    </a>
+    <a href="https://github.com/ViniOlr">
+        <img align="center" height="100" width="100" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/81593244?v=4" />
+    </a>
+</div>
+
+
 
 
 # <span style="color: #63C71F;">Tecnologias Utilizadas</span>
@@ -142,10 +186,6 @@ Para um detalhamento completo dos endpoints feito pelo swagger, após a execuç�
         Cada membro da equipe desempenha um papel fundamental no desenvolvimento e no sucesso do projeto, contribuindo com suas habilidades e conhecimentos na área de tecnologia.
 
 <br/>
-
-# <span style="color: #63C71F;">Pitch</span>
-
-[Assista ao video Pitch](https://youtu.be/0_QOPCaIbMc)
 
 # <span style="color: #63C71F;">Considerações Finais</span>
 
